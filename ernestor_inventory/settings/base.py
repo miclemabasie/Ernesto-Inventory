@@ -9,7 +9,7 @@ env = environ.Env(
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
@@ -26,6 +26,7 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "accounts.User"
 
 # Application definition
 
@@ -79,16 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "ernestor_inventory.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 
 # AUTH_USER_MODEL = "accounts.User"
 # Password validation

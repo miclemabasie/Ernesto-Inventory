@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ernestor_inventory.settings')
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE", "ernestor_inventory.settings.development"
+)
 
 application = get_wsgi_application()
