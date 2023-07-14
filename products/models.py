@@ -15,6 +15,7 @@ class TimeStampedModel(models.Model):
 
 class Category(TimeStampedModel):
     name = models.CharField(verbose_name=_("Category"), max_length=250)
+    slug = models.SlugField(verbose_name=_("Category Slug"), null=True, blank=True)
 
     def get_number_products(self) -> int:
         return len(Category.objects.filter(name=self.name))
@@ -45,6 +46,7 @@ class Product(TimeStampedModel):
         null=True,
         blank=True,
     )
+    slug = models.SlugField(verbose_name=_("Product Slug"), null=True, blank=True)
     quantity = models.PositiveIntegerField(
         verbose_name=_("Products's Quantity"), default=0
     )
