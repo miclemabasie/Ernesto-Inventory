@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from products.models import Product
+from .utils import generate_transactionID
+
 
 User = get_user_model()
 
@@ -23,13 +25,14 @@ class SaleItem(models.Model):
         null=True,
         blank=True,
     )
+    sale = models.ForeignKey("Sale", related_name="saleitems", on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         # set the price of the sale item
         if not self.unit_price:
             self.unit_price = self.product.price
         self.total_price = self.unit_price * self.quantity
-        return super.save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return f"{self.product.name} sold"
@@ -40,15 +43,18 @@ class Sale(models.Model):
     sales_man = models.ForeignKey(
         User, related_name="sales", on_delete=models.SET_NULL, null=True
     )
-    items = models.ManyToManyField(SaleItem)
-    quantity = models.PositiveIntegerField(default=0)
-    total_sale_price = models.FloatField(default=0.0)
+    total_sale_price = models.FloatField(default=0.0, null=True, blank=True)
     date_created = models.DateTimeField(blank=True)
+    validated = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
+        self.validated = True
         # calculate and set the total cost of the sale
+        # get all saleItems for this sale
         total_cost = 0
-        for item in self.items.all():
-            total_cost += item.unit_price
-        self.total_sale_price = total_cost
-        return super.save(*args, **kwargs)
+        saleItems = SaleItem.objects.get(sale__transaction_id=self.transaction_id)
+        if len(saleItems) > 0:
+            for item in saleItems:
+                total_cost += item.total_price
+        self.transaction_id = generate_transactionID()
+        return super().save(*args, **kwargs)

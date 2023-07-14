@@ -5,9 +5,16 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class Category(models.Model):
-    name = models.CharField(verbose_name=_("Category"), max_length=250)
+class TimeStampedModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Category(TimeStampedModel):
+    name = models.CharField(verbose_name=_("Category"), max_length=250)
 
     def get_number_products(self) -> int:
         return len(Category.objects.filter(name=self.name))
@@ -23,7 +30,7 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 
-class Product(models.Model):
+class Product(TimeStampedModel):
     user = models.ForeignKey(
         User, related_name="products", on_delete=models.SET_NULL, null=True
     )
@@ -44,8 +51,6 @@ class Product(models.Model):
     image = models.ImageField(verbose_name=_("Image"), upload_to="products")
     reorder_level = models.PositiveIntegerField(verbose_name=_("Reorder Level"))
     active = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
         return f"{self.name}"
