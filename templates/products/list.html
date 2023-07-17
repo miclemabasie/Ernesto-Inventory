@@ -26,6 +26,7 @@
         <div id="add-product" class="tab-pane fade">
             <h3>Add Product Section</h3>
             <div id="transaction-message"></div>
+            
             {% include "../components/add_product.html" %}
         </div>
 
@@ -81,7 +82,11 @@
       .then(response => response.json())
       .then(data => {
         // Handle the response from Django here
-        showTransactionMessage("success", data)
+        if (data.message === "success"){
+          showTransactionMessage("success", data)
+        } else {
+          showTransactionMessage("warning", data)
+        }
         console.log(data);
       })
       .catch(error => {
@@ -90,22 +95,49 @@
       });
   
   }
-
-  // Functiont o clear input fields after form is submited
+  
+  // Function to show transaction messate
   function showTransactionMessage(type, data){
-    if (type === "error") {
+    if (type === "warning" ) {
       console.error(data.message)
-    }else if(type === "success") {
-      let transactionAlert = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Holy guacamole!</strong> Success: add ${data.product_name} under the category ${product_category}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      var alertElement = document.getElementById('transaction-message');
+      alertElement.classList.remove('hide');
+      let msg = `<div id="myAlert" class="alert alert-${type} fade show" role="alert">
+        Error: ${data.message}
       </div>`
-      let box = document.getElementById("transaction-message")
-      box.appendChild(transactionAlert)
+      let alertBox = document.getElementById("transaction-message")
+      alertBox.innerHTML = msg
+       // Get the alert element
+
+      // Automatically hide the alert after 3 seconds (3000 milliseconds)
+      setTimeout(function() {
+        // Add the 'hide' class to the alert element
+        alertElement.classList.add('hide');
+      }, 3000);
+    }
+    else if(type === "success") {
+      var alertElement = document.getElementById('transaction-message');
+      alertElement.classList.remove('hide');
+      let msg = `<div id="myAlert" class="alert alert-${type} fade show" role="alert">
+        SUCCESS: ${data.name} added to ${data.category}.
+      </div>`
+      let alertBox = document.getElementById("transaction-message")
+      alertBox.innerHTML = msg
+       // Get the alert element
+
+      // Automatically hide the alert after 3 seconds (3000 milliseconds)
+      setTimeout(function() {
+        // Add the 'hide' class to the alert element
+        alertElement.classList.add('hide');
+      }, 3000);
+
     }
   }
+
+  
+
+ 
+
   
   // perform ajax request with the data 
 </script>
