@@ -82,10 +82,11 @@
       .then(response => response.json())
       .then(data => {
         // Handle the response from Django here
-        if (data.message === "success"){
-          showTransactionMessage("success", data)
+        if (data.status === "success"){
+          showTransactionMessage("success", data, "transaction-message")
+          clearInputFields(name, category, price, quantity, reorder_level)
         } else {
-          showTransactionMessage("warning", data)
+          showTransactionMessage("warning", data, "transaction-message")
         }
         console.log(data);
       })
@@ -97,47 +98,43 @@
   }
   
   // Function to show transaction messate
-  function showTransactionMessage(type, data){
+  function showTransactionMessage(type, data, parentElement){
     if (type === "warning" ) {
       console.error(data.message)
-      var alertElement = document.getElementById('transaction-message');
-      alertElement.classList.remove('hide');
-      let msg = `<div id="myAlert" class="alert alert-${type} fade show" role="alert">
-        Error: ${data.message}
-      </div>`
-      let alertBox = document.getElementById("transaction-message")
-      alertBox.innerHTML = msg
-       // Get the alert element
-
-      // Automatically hide the alert after 3 seconds (3000 milliseconds)
-      setTimeout(function() {
-        // Add the 'hide' class to the alert element
-        alertElement.classList.add('hide');
-      }, 3000);
+      showAlert(type, data, parentElement)
     }
     else if(type === "success") {
-      var alertElement = document.getElementById('transaction-message');
-      alertElement.classList.remove('hide');
-      let msg = `<div id="myAlert" class="alert alert-${type} fade show" role="alert">
-        SUCCESS: ${data.name} added to ${data.category}.
-      </div>`
-      let alertBox = document.getElementById("transaction-message")
-      alertBox.innerHTML = msg
-       // Get the alert element
-
-      // Automatically hide the alert after 3 seconds (3000 milliseconds)
-      setTimeout(function() {
-        // Add the 'hide' class to the alert element
-        alertElement.classList.add('hide');
-      }, 3000);
+      showAlert(type, data, parentElement)
 
     }
   }
 
-  
+  // Function to clear input fields
+  function clearInputFields(name, category, price, quantity, reorder_level) {
+    name.value = ""
+    category.value = ""
+    price.value = ""
+    quantity.value = ""
+    reorder_level.value = ""
+  }
 
- 
 
+  function showAlert(type, data, parentElement) {
+    var alertElement = document.getElementById('transaction-message');
+      alertElement.classList.remove('hide');
+      let msg = `<div id="myAlert" class="alert alert-${type} fade show" role="alert">
+        ${data.message}
+      </div>`
+      let alertBox = document.getElementById(`${parentElement}`)
+      alertBox.innerHTML = msg
+       // Get the alert element
+
+      // Automatically hide the alert after 3 seconds (3000 milliseconds)
+      setTimeout(function() {
+        // Add the 'hide' class to the alert element
+        alertElement.classList.add('hide');
+      }, 3000);
+  }
   
   // perform ajax request with the data 
 </script>

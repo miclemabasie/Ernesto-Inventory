@@ -45,7 +45,7 @@ def products_add_view(request):
     try:
         category = Category.objects.get(id=category)
     except Category.DoesNotExist:
-        return JsonResponse({"message": "invalid Category"})
+        return JsonResponse({"message": "invalid Category", "status": "error"})
     # Create a new product with data obj
     product = Product(
         name=name,
@@ -59,7 +59,9 @@ def products_add_view(request):
     try:
         test_product = Product.objects.get(name__iexact=name)
         if test_product:
-            return JsonResponse({"message": "Product with this name already exists"})
+            return JsonResponse(
+                {"message": "Product with this name already exists", "status": "error"}
+            )
     except Product.DoesNotExist:
         pass
 
@@ -68,10 +70,9 @@ def products_add_view(request):
     # Set active to the product if quantity is greater than 0
     if int(product.quantity) < 0:
         product.active = False
-    product.save()
+    # product.save()
     data = {
-        "message": "success",
-        "name": product.name,
-        "category": product.category.name,
+        "status": "success",
+        "message": f"Succes: {product.name} added to {product.category.name}!",
     }
     return JsonResponse(data)
