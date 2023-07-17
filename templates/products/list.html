@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#all-products">All Products</a>
+          </li>
+      <li class="nav-item">
+        <a class="nav-link " data-toggle="tab" href="#add-product">Add Product</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#category">Category</a>
+      </li>
+     
+    </ul>
+
+    <div class="tab-content mt-2">
+        <div id="all-products" class="tab-pane fade show active">
+            <h3>All Products Section</h3>
+            {% for product in products %}
+                <h2>{{product.name}}</h2>
+                <p>{{product.category}}</p>
+            {% endfor %}
+          </div>
+
+        <div id="add-product" class="tab-pane fade">
+            <h3>Add Product Section</h3>
+            <!-- Add your add product content here -->
+        </div>
+
+        <div id="category" class="tab-pane fade">
+            <h3>Category Section</h3>
+            <!-- Add your category content here -->
+        </div>
+    </div>
+  </div>
+    
+{% endblock content %}
+

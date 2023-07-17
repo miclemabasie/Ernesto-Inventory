@@ -6,8 +6,9 @@ from products.views import home_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("accounts/", include("accounts.urls", namespace="accounts")),
     path("", home_view, name="home"),
+    path("accounts/", include("accounts.urls", namespace="accounts")),
+    path("products/", include("products.urls", namespace="products")),
 ]
 
 

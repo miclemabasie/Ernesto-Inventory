@@ -31,8 +31,18 @@ class LoginForm1(forms.Form):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label="Email")
-    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+    email = forms.EmailField(
+        label="Password",
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": "Email"}
+        ),
+    )
+    password = forms.CharField(
+        label="Password",
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Password"}
+        ),
+    )
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
