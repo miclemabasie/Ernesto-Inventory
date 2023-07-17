@@ -50,7 +50,9 @@ class Product(TimeStampedModel):
     quantity = models.PositiveIntegerField(
         verbose_name=_("Products's Quantity"), default=0
     )
-    image = models.ImageField(verbose_name=_("Image"), upload_to="products")
+    image = models.ImageField(
+        verbose_name=_("Image"), upload_to="products", null=True, blank=True
+    )
     reorder_level = models.PositiveIntegerField(verbose_name=_("Reorder Level"))
     active = models.BooleanField(default=True)
 

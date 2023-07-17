@@ -1,0 +1,68 @@
+<form id="product-add-form" method="post">
+    {% csrf_token %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Name</label>
+            {{product_form.name}}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="category">Category</label>
+            {{product_form.category}}
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="price">Price</label>
+            {{product_form.price}}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="quantity">Quantity</label>
+            {{product_form.quantity}}
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="image">Image</label>
+            {{product_form.image}}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="reorderlevel">Reorder Level</label>
+            {{product_form.reorder_level}}
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="active" name="active" checked>
+            {{product_form.active}}
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-primary form-control btn-block">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form> 
+
+

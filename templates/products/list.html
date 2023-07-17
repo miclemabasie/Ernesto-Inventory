@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
+
 
 {% block content %}
 <div class="container mt-5">
@@ -17,16 +19,14 @@
 
     <div class="tab-content mt-2">
         <div id="all-products" class="tab-pane fade show active">
-            <h3>All Products Section</h3>
-            {% for product in products %}
-                <h2>{{product.name}}</h2>
-                <p>{{product.category}}</p>
-            {% endfor %}
+            
+            {% include "../components/datatable_products_list.html" %}
           </div>
 
         <div id="add-product" class="tab-pane fade">
             <h3>Add Product Section</h3>
-            <!-- Add your add product content here -->
+            <div id="transaction-message"></div>
+            {% include "../components/add_product.html" %}
         </div>
 
         <div id="category" class="tab-pane fade">
@@ -38,3 +38,75 @@
     
 {% endblock content %}
 
+{% block scripts %}
+<script>
+  console.log("From product list view template")
+  $(document).ready( function () {
+      $('#myTable').DataTable();
+    } );
+  let table = new DataTable('#myTable');
+
+  const name = document.getElementById("id_name")
+  const category = document.getElementById("id_category")
+  const price = document.getElementById("id_price")
+  const quantity = document.getElementById("id_quantity")
+  const reorder_level = document.getElementById("id_reorder_level")
+  const form = document.getElementById("product-add-form")
+  let csrf = document.getElementsByName("csrfmiddlewaretoken")
+  csrf = csrf[0].value
+  let box = document.getElementById("transaction-message")
+
+
+  let url = "{% url 'products:add-product' %}"
+  form.addEventListener("submit", function(e) {
+    e.preventDefault()
+    sendProductCreateData(url, name, category, price, quantity, reorder_level, csrf)
+  })
+  
+  function sendProductCreateData(url, name, category, price, quantity, reorder_level, csrf) {
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf,
+      },
+      body: JSON.stringify({
+        name: name.value,
+        category: category.value,
+        price: price.value,
+        quantity: quantity.value,
+        reorder_level: reorder_level.value,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from Django here
+        showTransactionMessage("success", data)
+        console.log(data);
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the fetch request
+        console.error('Error:', error);
+      });
+  
+  }
+
+  // Functiont o clear input fields after form is submited
+  function showTransactionMessage(type, data){
+    if (type === "error") {
+      console.error(data.message)
+    }else if(type === "success") {
+      let transactionAlert = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> Success: add ${data.product_name} under the category ${product_category}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>`
+      let box = document.getElementById("transaction-message")
+      box.appendChild(transactionAlert)
+    }
+  }
+  
+  // perform ajax request with the data 
+</script>
+{% endblock scripts %}

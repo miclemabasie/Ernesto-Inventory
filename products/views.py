@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from .models import Product, Category
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from .decorators import require_post
+from .forms import ProductAddForm, CategoryAddForm
+import json
+from django.utils.text import slugify
 
 
 @login_required
@@ -14,9 +19,59 @@ def home_view(request):
 def product_list(request):
     template_name = "products/list.html"
     products = Product.objects.all()
+    product_add_form = ProductAddForm()
+    category_add_form = CategoryAddForm()
     context = {
-        "page_title": "Products",
+        "section": "Products",
         "products": products,
+        "product_form": product_add_form,
+        "category_form": category_add_form,
     }
 
     return render(request, template_name, context)
+
+
+@login_required
+@require_post
+def products_add_view(request):
+    # Get the data sent from javascript
+    data = json.loads(request.body)
+    name = data["name"]
+    category = data["category"]
+    price = data["price"]
+    quantity = data["quantity"]
+    reorder_level = data["reorder_level"]
+    # Try to get the category object of using the given category id
+    try:
+        category = Category.objects.get(id=category)
+    except Category.DoesNotExist:
+        return JsonResponse({"error": "invalid Category"})
+    # Create a new product with data obj
+    product = Product(
+        name=name,
+        category=category,
+        price=price,
+        quantity=quantity,
+        reorder_level=reorder_level,
+    )
+
+    # Check if product already exists with same name
+    try:
+        test_product = Product.objects.get(name__iexact=name)
+        if test_product:
+            return JsonResponse({"error": "Product with this name already exists"})
+    except Product.DoesNotExist:
+        pass
+
+    # Set the user to the current logged in user
+    product.user = request.user
+    # Set active to the product if quantity is greater than 0
+    if int(product.quantity) < 0:
+        product.active = False
+    product.save()
+    data = {
+        "message": "python response",
+        "product_name": product.name,
+        "product_category": product.category.name,
+    }
+    return JsonResponse(data)
