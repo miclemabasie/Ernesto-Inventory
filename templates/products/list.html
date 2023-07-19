@@ -32,6 +32,8 @@
 
         <div id="category" class="tab-pane fade">
             <h3>Category Section</h3>
+            <div id="catBoxElem"></div>
+            {% include "../components/category.html" %}
             <!-- Add your category content here -->
         </div>
     </div>
@@ -46,6 +48,7 @@
       $('#myTable').DataTable();
     } );
   let table = new DataTable('#myTable');
+  let table2 = new DataTable('#categoryTable');
 
   const name = document.getElementById("id_name")
   const category = document.getElementById("id_category")
@@ -61,10 +64,10 @@
   let url = "{% url 'products:add-product' %}"
   form.addEventListener("submit", function(e) {
     e.preventDefault()
-    sendProductCreateData(url, name, category, price, quantity, reorder_level, csrf)
+    sendProductCreateData(url, name, category, price, quantity, reorder_level, csrf, "transaction-message")
   })
   
-  function sendProductCreateData(url, name, category, price, quantity, reorder_level, csrf) {
+  function sendProductCreateData(url, name, category, price, quantity, reorder_level, csrf, boxElement) {
     fetch(url, {
       method: 'POST',
       headers: {
@@ -83,10 +86,10 @@
       .then(data => {
         // Handle the response from Django here
         if (data.status === "success"){
-          showTransactionMessage("success", data, "transaction-message")
+          showTransactionMessage("success", data, boxElement)
           clearInputFields(name, category, price, quantity, reorder_level)
         } else {
-          showTransactionMessage("warning", data, "transaction-message")
+          showTransactionMessage("warning", data, boxElement)
         }
         console.log(data);
       })
@@ -110,7 +113,7 @@
   }
 
   // Function to clear input fields
-  function clearInputFields(name, category, price, quantity, reorder_level) {
+  function clearInputFields(name, category, price, quantity, reorder_level, categoryName) {
     name.value = ""
     category.value = ""
     price.value = ""
@@ -121,7 +124,9 @@
 
   function showAlert(type, data, parentElement) {
     var alertElement = document.getElementById('transaction-message');
+    var alertElemCategory = document.getElementById("catBoxElem")
       alertElement.classList.remove('hide');
+      alertElemCategory.classList.remove("hide")
       let msg = `<div id="myAlert" class="alert alert-${type} fade show" role="alert">
         ${data.message}
       </div>`
@@ -133,9 +138,66 @@
       setTimeout(function() {
         // Add the 'hide' class to the alert element
         alertElement.classList.add('hide');
+        alertElemCategory.classList.add("hide")
       }, 3000);
   }
   
-  // perform ajax request with the data 
+  // Add category using ajax
+  const catUrl = "{% url 'products:add-category' %}"
+  const catForm = document.getElementById("catForm"),
+  catName = catForm.name
+  let csrfCategory = document.getElementsByName("csrfmiddlewaretoken")
+  csrfCategory = csrfCategory[0].value;
+
+  catForm.addEventListener("submit", function(e) {
+    e.preventDefault()
+    console.log("This is from the category form")
+    sendCategoryCreateData(catUrl, catName, csrfCategory, "catBoxElem")
+  })
+
+  function sendCategoryCreateData(catUrl, catName, catCsrf, boxElement) {
+    fetch(catUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf,
+      },
+      body: JSON.stringify({
+        name: catName.value
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from Django here
+        if (data.status === "success"){
+          showTransactionMessage("success", data, boxElement)
+          // updateCategoryTable(catName)
+          catForm.name.value = ""
+        } else {
+          showTransactionMessage("warning", data, boxElement)
+        }
+        console.log(data);
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the fetch request
+        console.error('Error:', error);
+      });
+  
+  }
+
+  // function to update table of categories when new cat is added
+  function updateCategoryTable(catName) {
+    const cats = document.querySelectorAll(".t-cat")
+    const last = cats[cats.length - 1]
+    console.log("Reaching here", last, cats.length)
+    const last_copy = last.cloneNode(true);
+    var len = cats.length
+    last_copy.childred[0].innerText = len + 1;
+    last_copy.childred[1].innerText = catname;
+    last_copy.childred[2].innerText = "0";
+    let catTableList = document.querySelector(".t-body-cat")
+    catTableList.appendChild(last_copy)
+  }
+
 </script>
 {% endblock scripts %}

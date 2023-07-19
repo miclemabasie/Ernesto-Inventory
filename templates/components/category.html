@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row">
+
+        <div class="container col-md-6">
+        <form id="catForm" method="post">
+                <div class="row">
+                <div class="col-md-12 mt-4">
+                    <div class="form-group">
+                    <label for="name">Name</label>
+                    {{category_form.name}}
+                    </div>
+                </div>
+                </div>  
+    
+                <div class="row">
+                    <div class="col-md-12">
+                    <button type="submit" class="mt-4 btn btn-primary form-control btn-block">Add Category</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="container col-md-6">
+            <div class="row">
+            <h1 class="mb-3">List of Categories</h1>
+            <table id="categoryTable" class="display">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Number of Products</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class=t-body-cat>
+                    {% for category in categories %}
+                    <tr class="t-cat">
+                        <td >{{forloop.counter}}</td>
+                        <td>{{category.name}}</td>
+                        <td>{{category.get_products_count}}</td>
+                        <td style="text-align: right">
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li id="" class="dropdown-item bg-danger p-1 mb-2"><a class="btn btn-sm" href="">Delete category</a></li>
+                                    <li id="" class="dropdown-item bg-warning p-0"><a class="btn btn-sm" href="">Edit Category</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                        {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>[#]</th>
+                        <th>[Name]</th>
+                        <th>[Number of Product]</th>
+                        <th>[Action]</th>
+                        
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+

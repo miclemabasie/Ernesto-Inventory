@@ -13,11 +13,11 @@
     <tbody>
         {% for product in products %}
         <tr>
-            <td>{{forloop.counter}}</td>
+            <td >{{forloop.counter}}</td>
             <td>{{product.name}}</td>
             <td>{{product.category}}</td>
             <td>{{product.price}}</td>
-            <td>{{product.quantity}}</td>
+            <td {% if product.reorder_level >= product.quantity %}class="bg-warning"{% endif %}>{{product.quantity}}</td>
             <td>{{product.reorder_level}}</td>
             <td style="text-align: right">
                 <div class="dropdown">

@@ -2,40 +2,36 @@
     {% csrf_token %}
     <div class="container">
       <div class="row">
-        <div class="col-md-6 mt-4">
+        <div class="col-md-12 mt-4">
           <div class="form-group">
             <label for="name">Name</label>
             {{product_form.name}}
           </div>
         </div>
+       
+      </div>
+  
+      <div class="row">
         <div class="col-md-6 mt-4">
           <div class="form-group">
             <label for="category">Category</label>
             {{product_form.category}}
           </div>
         </div>
-      </div>
-  
-      <div class="row">
         <div class="col-md-6 mt-4">
           <div class="form-group">
             <label for="price">Price</label>
             {{product_form.price}}
           </div>
         </div>
-        <div class="col-md-6 mt-4">
-          <div class="form-group">
-            <label for="quantity">Quantity</label>
-            {{product_form.quantity}}
-          </div>
-        </div>
+        
       </div>
   
       <div class="row">
         <div class="col-md-6 mt-4">
           <div class="form-group">
-            <label for="image">Image</label>
-            {{product_form.image}}
+            <label for="quantity">Quantity</label>
+            {{product_form.quantity}}
           </div>
         </div>
         <div class="col-md-6 mt-4">

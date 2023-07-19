@@ -21,9 +21,11 @@ def product_list(request):
     products = Product.objects.all()
     product_add_form = ProductAddForm()
     category_add_form = CategoryAddForm()
+    categories = Category.objects.all()
     context = {
         "section": "Products",
         "products": products,
+        "categories": categories,
         "product_form": product_add_form,
         "category_form": category_add_form,
     }
@@ -70,9 +72,35 @@ def products_add_view(request):
     # Set active to the product if quantity is greater than 0
     if int(product.quantity) < 0:
         product.active = False
-    # product.save()
+    product.save()
     data = {
         "status": "success",
         "message": f"Succes: {product.name} added to {product.category.name}!",
+    }
+    return JsonResponse(data)
+
+
+@login_required
+@require_post
+def category_add_view(request):
+    print("Request to add")
+    data = json.loads(request.body)
+    category_name = data["name"]
+
+    # Check if category with same name alread exists
+    try:
+        category = Category.objects.get(name__iexact=category_name)
+        return JsonResponse(
+            {"status": "Error", "message": "Category with this name already exist!"}
+        )
+    except Category.DoesNotExist:
+        pass
+    # Create the category
+    category = Category(name=category_name)
+    category.slug = slugify(category_name)
+    category.save()
+    data = {
+        "status": "success",
+        "message": "Category added successfuly",
     }
     return JsonResponse(data)

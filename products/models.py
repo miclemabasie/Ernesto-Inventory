@@ -20,9 +20,10 @@ class Category(TimeStampedModel):
     def get_number_products(self) -> int:
         return len(Category.objects.filter(name=self.name))
 
-    def get_products(self) -> list:
-        queryset = Category.objects.filter(name=self.name)
-        return queryset
+    def get_products_count(self) -> list:
+        cat = Category.objects.get(name__iexact=self.name)
+        queryset = Product.objects.filter(category=cat)
+        return queryset.count()
 
     def __str__(self) -> str:
         return f"{self.name}"

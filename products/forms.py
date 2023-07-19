@@ -40,6 +40,10 @@ class CategoryAddForm(forms.ModelForm):
         model = Category
         fields = ["name"]
 
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+        }
+
     def clean_name(self):
         name = self.cleaned_data.get("name")
         # Check if product in database already with same name
