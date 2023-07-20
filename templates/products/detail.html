@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block extra_styles %}
+
+    <style>
+    body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    }
+
+    .product-detail {
+    width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    }
+
+    .product-image {
+    width: 400px;
+    float: left;
+    }
+
+    .product-info {
+    margin-left: 420px;
+    }
+
+    .product-title {
+    font-size: 18px;
+    font-weight: bold;
+    }
+
+    .product-price {
+    font-size: 16px;
+    margin-top: 10px;
+    }
+
+    .product-description {
+    font-size: 14px;
+    margin-top: 10px;
+    }
+
+    .product-add-to-cart {
+    text-align: center;
+    margin-top: 20px;
+    }
+    </style>
+
+{% endblock extra_styles %}
+
+{% block content %}
+<h1></h1>
+<div class="product-detail">
+  <div class="product-image">
+    {% comment %} <img src="product.jpg" alt="Product Image"> {% endcomment %}
+  </div>
+  <div class="product-info">
+    <h2 class="product-title">Product Name: {{product.name}}</h2>
+    <p class="product-price">Product Price: ${{product.price}}</p>
+    <p class="product-price">Product Category: {{product.category}}</p>
+    <p class="product-price">Product Quantity: {{product.quantity}}</p>
+    <p class="product-price">Product Reorder Level: {{product.reorder_level}}</p>
+    <p class="product-description">Product Description: {{product.description}}</p>
+
+    <a class="btn btn-md bg-warning" href="{% url 'products:update-product' product.id %}">Edit product</a>
+  </div>
+</div>
+
+
+{% endblock content %}

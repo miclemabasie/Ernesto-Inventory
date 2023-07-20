@@ -26,9 +26,9 @@
                         Actions
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="">Edit product</a></li>
-                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="">Delete Product</a></li>
-                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="">Product Detail</a></li>
+                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'products:update-product' product.id %}">Edit product</a></li>
+                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'products:delete-product' product.id %}">Delete Product</a></li>
+                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'products:product-detail' product.id %}">Product Detail</a></li>
                     </ul>
                 </div>
             </td>

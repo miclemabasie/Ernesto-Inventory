@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, Category
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -6,6 +6,8 @@ from .decorators import require_post
 from .forms import ProductAddForm, CategoryAddForm
 import json
 from django.utils.text import slugify
+from django.urls import reverse
+from django.core.exceptions import ValidationError
 
 
 @login_required
@@ -78,6 +80,45 @@ def products_add_view(request):
         "message": f"Succes: {product.name} added to {product.category.name}!",
     }
     return JsonResponse(data)
+
+
+@login_required
+def product_detail_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    template_name = "products/detail.html"
+    context = {
+        "product": product,
+    }
+    return render(request, template_name, context)
+
+
+@login_required
+def update_product_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == "POST":
+        form = ProductAddForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect(f"/products/?updatedproduct={product_id}")
+            # return redirect(reverse("products:list"))
+        else:
+            print("#$###########3", form.errors)
+            raise ValidationError("Invalid product data")
+    form = ProductAddForm(instance=product)
+    template_name = "products/update.html"
+    context = {
+        "product": "product",
+        "product_form": form,
+    }
+    return render(request, template_name, context)
+
+
+@login_required
+def delete_product_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    # reqeust to delete product
+    product.delete()
+    return redirect(reverse("products:list"))
 
 
 @login_required

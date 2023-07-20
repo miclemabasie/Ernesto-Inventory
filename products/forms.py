@@ -10,7 +10,6 @@ class ProductAddForm(forms.ModelForm):
             "category",
             "price",
             "quantity",
-            "image",
             "reorder_level",
             "active",
         ]
@@ -18,13 +17,12 @@ class ProductAddForm(forms.ModelForm):
             "name": forms.TextInput(attrs={"class": "form-control"}),
             "category": forms.Select(attrs={"class": "form-control"}),
             "price": forms.NumberInput(attrs={"class": "form-control"}),
-            "image": forms.ClearableFileInput(attrs={"class": "form-control"}),
             "reorder_level": forms.NumberInput(attrs={"class": "form-control"}),
             "quantity": forms.NumberInput(attrs={"class": "form-control"}),
             "active": forms.CheckboxInput(attrs={"class": "form-check-input"}),
         }
 
-    def clean_name(self):
+    def on_create(self):
         name = self.cleaned_data.get("name")
         # Check if product in database already with same name
         try:

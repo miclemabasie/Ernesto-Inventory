@@ -47,6 +47,9 @@ class Product(TimeStampedModel):
         null=True,
         blank=True,
     )
+    description = models.TextField(
+        verbose_name=_("Product Description"), blank=True, null=True
+    )
     slug = models.SlugField(verbose_name=_("Product Slug"), null=True, blank=True)
     quantity = models.PositiveIntegerField(
         verbose_name=_("Products's Quantity"), default=0
