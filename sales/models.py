@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from products.models import Product
 from .utils import generate_transactionID
+from django.utils import timezone
 
 
 User = get_user_model()
@@ -26,12 +27,15 @@ class SaleItem(models.Model):
         blank=True,
     )
     sale = models.ForeignKey("Sale", related_name="saleitems", on_delete=models.CASCADE)
+    created = models.DateTimeField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         # set the price of the sale item
         if not self.unit_price:
             self.unit_price = self.product.price
         self.total_price = self.unit_price * self.quantity
+        if not self.created:
+            self.created = timezone.now()
         return super().save(*args, **kwargs)
 
     def __str__(self) -> str:

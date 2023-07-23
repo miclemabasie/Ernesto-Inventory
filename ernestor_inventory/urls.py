@@ -9,6 +9,7 @@ urlpatterns = [
     path("", home_view, name="home"),
     path("accounts/", include("accounts.urls", namespace="accounts")),
     path("products/", include("products.urls", namespace="products")),
+    path("sales/", include("sales.urls", namespace="sales")),
 ]
 
 

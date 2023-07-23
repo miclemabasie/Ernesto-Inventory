@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="container mt-5">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#all-sales">All Sales</a>
+          </li>
+      <li class="nav-item">
+        <a class="nav-link " data-toggle="tab" href="#add-sale">Add Sale</a>
+      </li>
+     
+    </ul>
+
+    <div class="tab-content mt-2">
+        <div id="all-sales" class="tab-pane fade show active">
+            <h3>Sales list </h3>
+            {% include "../components/datatable_sales_list.html" %}
+          </div>
+
+        <div id="add-sale" class="tab-pane fade">
+            <h3>Add Sale Section</h3>
+            <div id="transaction-message"></div>
+            
+            {% include "../components/add_sale.html" %}
+        </div>
+    </div>
+  </div>
+    
+{% endblock content %}
+
+{% block scripts %}
+<script>
+  console.log("From product list view template")
+  $(document).ready( function () {
+      $('#myTable').DataTable();
+    } );
+  let table = new DataTable('#myTable');
+  let table2 = new DataTable('#categoryTable');
+
+  const name = document.getElementById("id_name")
+  const category = document.getElementById("id_category")
+  const price = document.getElementById("id_price")
+  const quantity = document.getElementById("id_quantity")
+  const reorder_level = document.getElementById("id_reorder_level")
+  const form = document.getElementById("product-add-form")
+  let csrf = document.getElementsByName("csrfmiddlewaretoken")
+  csrf = csrf[0].value
+  let box = document.getElementById("transaction-message")
+
+
+  let url = "{% url 'products:add-product' %}"
+  form.addEventListener("submit", function(e) {
+    e.preventDefault()
+    sendProductCreateData(url, name, category, price, quantity, reorder_level, csrf, "transaction-message")
+  })
+  
+  function sendProductCreateData(url, name, category, price, quantity, reorder_level, csrf, boxElement) {
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf,
+      },
+      body: JSON.stringify({
+        name: name.value,
+        category: category.value,
+        price: price.value,
+        quantity: quantity.value,
+        reorder_level: reorder_level.value,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from Django here
+        if (data.status === "success"){
+          showTransactionMessage("success", data, boxElement)
+          clearInputFields(name, category, price, quantity, reorder_level)
+        } else {
+          showTransactionMessage("warning", data, boxElement)
+        }
+        console.log(data);
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the fetch request
+        console.error('Error:', error);
+      });
+  
+  }
+  
+  // Function to show transaction messate
+  function showTransactionMessage(type, data, parentElement){
+    if (type === "warning" ) {
+      console.error(data.message)
+      showAlert(type, data, parentElement)
+    }
+    else if(type === "success") {
+      showAlert(type, data, parentElement)
+
+    }
+  }
+
+  // Function to clear input fields
+  function clearInputFields(name, category, price, quantity, reorder_level, categoryName) {
+    name.value = ""
+    category.value = ""
+    price.value = ""
+    quantity.value = ""
+    reorder_level.value = ""
+  }
+
+
+  function showAlert(type, data, parentElement) {
+    var alertElement = document.getElementById('transaction-message');
+    var alertElemCategory = document.getElementById("catBoxElem")
+      alertElement.classList.remove('hide');
+      alertElemCategory.classList.remove("hide")
+      let msg = `<div id="myAlert" class="alert alert-${type} fade show" role="alert">
+        ${data.message}
+      </div>`
+      let alertBox = document.getElementById(`${parentElement}`)
+      alertBox.innerHTML = msg
+       // Get the alert element
+
+      // Automatically hide the alert after 3 seconds (3000 milliseconds)
+      setTimeout(function() {
+        // Add the 'hide' class to the alert element
+        alertElement.classList.add('hide');
+        alertElemCategory.classList.add("hide")
+      }, 3000);
+  }
+  
+  // Add category using ajax
+  const catUrl = "{% url 'products:add-category' %}"
+  const catForm = document.getElementById("catForm"),
+  catName = catForm.name
+  let csrfCategory = document.getElementsByName("csrfmiddlewaretoken")
+  csrfCategory = csrfCategory[0].value;
+
+  catForm.addEventListener("submit", function(e) {
+    e.preventDefault()
+    console.log("This is from the category form")
+    sendCategoryCreateData(catUrl, catName, csrfCategory, "catBoxElem")
+  })
+
+  function sendCategoryCreateData(catUrl, catName, catCsrf, boxElement) {
+    fetch(catUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrf,
+      },
+      body: JSON.stringify({
+        name: catName.value
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from Django here
+        if (data.status === "success"){
+          showTransactionMessage("success", data, boxElement)
+          // updateCategoryTable(catName)
+          catForm.name.value = ""
+        } else {
+          showTransactionMessage("warning", data, boxElement)
+        }
+        console.log(data);
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the fetch request
+        console.error('Error:', error);
+      });
+  
+  }
+
+  // function to update table of categories when new cat is added
+  function updateCategoryTable(catName) {
+    const cats = document.querySelectorAll(".t-cat")
+    const last = cats[cats.length - 1]
+    console.log("Reaching here", last, cats.length)
+    const last_copy = last.cloneNode(true);
+    var len = cats.length
+    last_copy.childred[0].innerText = len + 1;
+    last_copy.childred[1].innerText = catname;
+    last_copy.childred[2].innerText = "0";
+    let catTableList = document.querySelector(".t-body-cat")
+    catTableList.appendChild(last_copy)
+  }
+
+</script>
+{% endblock scripts %}

@@ -1,0 +1,48 @@
+<table id="myTable" class="display">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sale in saleItems %}
+        <tr>
+            <td >{{forloop.counter}}</td>
+            <td>{{sale.name}}</td>
+            <td>{{sale.product.category}}</td>
+            <td>{{sale.price}}</td>
+            <td {% if product.reorder_level >= product.quantity %}class="bg-warning"{% endif %}>{{product.quantity}}</td>
+            <td>{{product.reorder_level}}</td>
+            <td style="text-align: right">
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Actions
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'products:update-product' product.id %}">Edit product</a></li>
+                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'products:delete-product' product.id %}">Delete Product</a></li>
+                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'products:product-detail' product.id %}">Product Detail</a></li>
+                    </ul>
+                </div>
+            </td>
+            {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </tfoot>
+</table>

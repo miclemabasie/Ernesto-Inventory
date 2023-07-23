@@ -1,0 +1,53 @@
+<form id="product-add-form" method="post">
+    {% csrf_token %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mt-4">
+          <div class="form-group">
+            <label for="product">Product</label>
+            {{sale_form.product}}
+          </div>
+        </div>
+       
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6 mt-4">
+          <div class="form-group">
+            <label for="quantity">quantity</label>
+            {{sale_form.quantity}}
+          </div>
+        </div>
+        <div class="col-md-6 mt-4">
+          <div class="form-group">
+            <label for="unit_price">Unit Price</label>
+            {{sale_form.unit_price}}
+          </div>
+        </div>
+        
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6 mt-4">
+          <div class="form-group">
+            <label for="total_price">Total Price</label>
+            {{sale_form.total_price}}
+          </div>
+        </div>
+        <div class="col-md-6 mt-4">
+          <div class="form-group">
+            <label for="created">Date</label>
+            {{sale_form.created}}
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-12">
+          <button type="submit" class="mt-4 btn btn-primary form-control btn-block">Add Sale Item</button>
+        </div>
+      </div>
+    </div>
+  </form> 
+
+
