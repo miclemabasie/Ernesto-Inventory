@@ -14,7 +14,7 @@ class TimeStampedModel(models.Model):
 
 
 class Category(TimeStampedModel):
-    name = models.CharField(verbose_name=_("Category"), max_length=250)
+    name = models.CharField(verbose_name=_("Category"), max_length=250, unique=True)
     slug = models.SlugField(verbose_name=_("Category Slug"), null=True, blank=True)
 
     def get_number_products(self) -> int:
@@ -39,7 +39,7 @@ class Product(TimeStampedModel):
     category = models.ForeignKey(
         Category, related_name="products", on_delete=models.SET_NULL, null=True
     )
-    name = models.CharField(verbose_name=_("Product Name"), max_length=250)
+    name = models.CharField(verbose_name=_("Product Name"), max_length=250, unique=True)
     price = models.FloatField(
         verbose_name=_("Product's Price"),
         help_text="In XAF",

@@ -145,3 +145,29 @@ def category_add_view(request):
         "message": "Category added successfuly",
     }
     return JsonResponse(data)
+
+
+@login_required
+def category_edit_view(request, category_id):
+    print(f"This is the cat id: @####", category_id)
+    category = get_object_or_404(Category, id=category_id)
+    if request.method == "POST":
+        form = CategoryAddForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse("products:list"))
+        print("#########33", form.errors)
+    form = CategoryAddForm(instance=category)
+    template_name = "products/category_edit.html"
+    context = {
+        "category_form": form,
+    }
+    return render(request, template_name, context)
+
+
+@login_required
+def delete_category_view(request, category_id):
+    cateogry = get_object_or_404(Category, id=category_id)
+    # reqeust to delete product
+    cateogry.delete()
+    return redirect(reverse("products:list"))

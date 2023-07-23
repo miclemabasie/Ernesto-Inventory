@@ -41,13 +41,3 @@ class CategoryAddForm(forms.ModelForm):
         widgets = {
             "name": forms.TextInput(attrs={"class": "form-control"}),
         }
-
-    def clean_name(self):
-        name = self.cleaned_data.get("name")
-        # Check if product in database already with same name
-        try:
-            category = Category.objects.get(name__iexact=name)
-            if category:
-                raise forms.ValidationError("Category with same name alread exists!")
-        except Product.DoesNotExist:
-            return name

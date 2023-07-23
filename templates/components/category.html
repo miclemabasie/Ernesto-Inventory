@@ -45,8 +45,8 @@
                                     Actions
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li id="" class="dropdown-item bg-danger p-1 mb-2"><a class="btn btn-sm" href="">Delete category</a></li>
-                                    <li id="" class="dropdown-item bg-warning p-0"><a class="btn btn-sm" href="">Edit Category</a></li>
+                                    <li id="" class="dropdown-item bg-warning p-0"><a class="btn btn-sm" href="{% url 'products:edit-category' category.id %}">Edit Category</a></li>
+                                    <li id="" class="dropdown-item bg-danger p-1 mb-2"><a class="btn btn-sm" href="{% url 'products:delete-category' category.id %}">Delete category</a></li>
                                 </ul>
                             </div>
                         </td>
