@@ -12,5 +12,5 @@ class SaleItemForm(forms.ModelForm):
             "quantity": forms.NumberInput(attrs={"class": "form-control"}),
             "unit_price": forms.NumberInput(attrs={"class": "form-control"}),
             "total_price": forms.NumberInput(attrs={"class": "form-control"}),
-            "created": forms.DateInput(attrs={"class": "form-control"}),
+            "created": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
         }

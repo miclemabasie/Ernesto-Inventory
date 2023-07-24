@@ -33,7 +33,7 @@ class SaleItem(models.Model):
         # set the price of the sale item
         if not self.unit_price:
             self.unit_price = self.product.price
-        self.total_price = self.unit_price * self.quantity
+        self.total_price = float(self.unit_price) * int(self.quantity)
         if not self.created:
             self.created = timezone.now()
         return super().save(*args, **kwargs)
@@ -43,22 +43,24 @@ class SaleItem(models.Model):
 
 
 class Sale(models.Model):
-    transaction_id = models.CharField(verbose_name=_("Transaction ID"), max_length=250)
+    transaction_id = models.CharField(
+        verbose_name=_("Transaction ID"), max_length=250, null=True, blank=True
+    )
     sales_man = models.ForeignKey(
         User, related_name="sales", on_delete=models.SET_NULL, null=True
     )
     total_sale_price = models.FloatField(default=0.0, null=True, blank=True)
-    date_created = models.DateTimeField(blank=True)
-    validated = models.BooleanField(default=True)
+    date_created = models.DateTimeField(blank=True, null=True)
+    validated = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        self.validated = True
         # calculate and set the total cost of the sale
         # get all saleItems for this sale
         total_cost = 0
-        saleItems = SaleItem.objects.get(sale__transaction_id=self.transaction_id)
-        if len(saleItems) > 0:
-            for item in saleItems:
-                total_cost += item.total_price
-        self.transaction_id = generate_transactionID()
+        if self.validated == True:
+            saleItems = SaleItem.objects.get(sale__transaction_id=self.transaction_id)
+            if len(saleItems) > 0:
+                for item in saleItems:
+                    total_cost += item.total_price
+            self.transaction_id = generate_transactionID()
         return super().save(*args, **kwargs)
