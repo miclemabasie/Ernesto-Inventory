@@ -24,7 +24,6 @@ def sale_list(request):
 @login_required
 def add_sale_view(request):
     user = request.user
-
     data = json.loads(request.body)
     # Check if a sale was previously create
     sale_id = data["saleID"]
@@ -69,6 +68,7 @@ def add_sale_view(request):
         "product": sale_item_obj.product.name,
         "quantity": sale_item_obj.quantity,
         "price": sale_item_obj.unit_price,
+        "totalPrice": sale_item_obj.total_price,
         "saleID": sale.id,
     }
     return JsonResponse(data)
