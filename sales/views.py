@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Sale, SaleItem
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -6,6 +6,7 @@ import json
 from .forms import SaleItemForm
 from products.decorators import require_post
 from products.models import Product
+from django.views.decorators.csrf import csrf_exempt
 
 
 @login_required
@@ -70,6 +71,7 @@ def add_sale_view(request):
         "price": sale_item_obj.unit_price,
         "totalPrice": sale_item_obj.total_price,
         "saleID": sale.id,
+        "saleitem_id": sale_item_obj.id,
     }
     return JsonResponse(data)
 
@@ -79,3 +81,22 @@ def sale_detail(request, saleitem_id, transaction_id):
     template_name = "sales/details.html"
     context = {}
     return render(request, template_name, context)
+
+
+@csrf_exempt
+@login_required
+def remove_sale_previewItem(request):
+    data = json.loads(request.body)
+    saleItem_id = data["deleteSaleID"]
+    # get the item from the database
+    try:
+        saleItem = get_object_or_404(SaleItem, id=saleItem_id)
+        saleItem.delete()
+        data = {
+            "status": "success",
+            "message": f"saleItem ID No. {saleItem_id} removed.",
+        }
+        return JsonResponse(data)
+    except SaleItem.DoesNotExist:
+        data = {"status": "error", "message": "No saleItem with given id found!"}
+        return JsonResponse(data)
