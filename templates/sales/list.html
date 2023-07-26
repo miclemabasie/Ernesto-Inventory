@@ -214,6 +214,29 @@
       
     }
 
+    // Send sale validation request to Django
+    function validateSale(saleID, csrf) {
+      const validateUrl = "{% url 'sales:add-sale' %}?query=validateSale";
+      fetch(validateUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrf,
+        },
+        body: JSON.stringify({
+          saleID: saleID,
+        }),
+      })  
+    }
+    
+
+    // Get the validate button and list for click event
+    const validBtn = document.getElementById("validateBtn")
+    validBtn.addEventListener("click", function(e) {
+      // e.preventDefault()
+      validateSale(saleId, csrf)
+    })
+
 
 
 </script>

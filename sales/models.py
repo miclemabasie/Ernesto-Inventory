@@ -58,9 +58,7 @@ class Sale(models.Model):
         # get all saleItems for this sale
         total_cost = 0
         if self.validated == True:
-            saleItems = SaleItem.objects.filter(
-                sale__transaction_id=self.transaction_id
-            )
+            saleItems = SaleItem.objects.filter(sale__id=self.id)
             if len(saleItems) > 0:
                 for item in saleItems:
                     total_cost += item.total_price

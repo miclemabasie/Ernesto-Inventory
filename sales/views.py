@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from .models import Sale, SaleItem
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -21,7 +22,6 @@ def sale_list(request):
     return render(request, template_name, context)
 
 
-# @require_post
 @login_required
 def add_sale_view(request):
     user = request.user
@@ -34,6 +34,15 @@ def add_sale_view(request):
         sale.save()
     else:
         sale = Sale.objects.get(id=sale_id)
+    # Check if the request is carrying a query parameter
+    # for validating the existing sale object
+    validate_query = request.GET.get("query")
+    if validate_query == "validateSale":
+        # validate the existing sale
+        sale.validated = True
+        sale.save()
+        # return JsonResponse({"data": "done"})
+        return redirect(reverse("sales:list"))
     # Get sale item data
     # Extract data from javascriptData
     {
@@ -86,6 +95,10 @@ def sale_detail(request, saleitem_id, transaction_id):
 @csrf_exempt
 @login_required
 def remove_sale_previewItem(request):
+    """
+    Remove item in the front end preview table in the
+    database when user clicks on 'x' button.
+    """
     data = json.loads(request.body)
     saleItem_id = data["deleteSaleID"]
     # get the item from the database
