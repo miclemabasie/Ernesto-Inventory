@@ -12,10 +12,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 @login_required
 def sale_list(request):
-    sales = SaleItem.objects.all()
+    sales = SaleItem.objects.filter(sale__validated=True)
     sale_form = SaleItemForm(request.POST or None)
     context = {
-        "sales": sales,
+        "saleItems": sales,
         "sale_form": sale_form,
     }
     template_name = "sales/list.html"
@@ -34,6 +34,7 @@ def add_sale_view(request):
         sale.save()
     else:
         sale = Sale.objects.get(id=sale_id)
+
     # Check if the request is carrying a query parameter
     # for validating the existing sale object
     validate_query = request.GET.get("query")
@@ -41,7 +42,15 @@ def add_sale_view(request):
         # validate the existing sale
         sale.validated = True
         sale.save()
-        # return JsonResponse({"data": "done"})
+
+        # adjust product's quantities
+        # !!! should be transfered to the sale save method in the models
+        productSales = sale.saleitems.all()
+        for saleItem in productSales:
+            saleItem.product.quantity -= int(saleItem.quantity)
+            saleItem.product.save()
+            print("This is save", saleItem.product)
+
         return redirect(reverse("sales:list"))
     # Get sale item data
     # Extract data from javascriptData
@@ -66,6 +75,16 @@ def add_sale_view(request):
             "message": "No product found with given ID",
         }
         return JsonResponse(data)
+
+    # Check if quantity of product is Greater or equal to quantity about to be sold
+    if product.quantity < int(quantity):
+        print("#############", product.quantity, quantity)
+        data = {
+            "status": "warnine",
+            "message": "No enough products to perform this transaction",
+        }
+        return JsonResponse(data)
+
     # create a new saleItem element with extracted data
     sale_item_obj = SaleItem(
         product=product, quantity=quantity, unit_price=price, sale=sale, created=created
@@ -86,9 +105,21 @@ def add_sale_view(request):
 
 
 @login_required
-def sale_detail(request, saleitem_id, transaction_id):
+def sale_detail(request, saleitem_id):
     template_name = "sales/details.html"
-    context = {}
+    sale = get_object_or_404(SaleItem, id=saleitem_id)
+    sold_with_products = SaleItem.objects.filter(
+        sale__transaction_id=sale.sale.transaction_id
+    )
+    # remove the main sale from the sold with products list
+    products = []
+    for saleItem in sold_with_products:
+        if saleItem.product.id != sale.product.id:
+            products.append(saleItem)
+    context = {
+        "sale": sale,
+        "products_with": products,
+    }
     return render(request, template_name, context)
 
 
@@ -113,3 +144,63 @@ def remove_sale_previewItem(request):
     except SaleItem.DoesNotExist:
         data = {"status": "error", "message": "No saleItem with given id found!"}
         return JsonResponse(data)
+
+
+def delete_sale(request, sale_id):
+    """
+    Delete a saleItem from the database.
+    """
+    sale = get_object_or_404(SaleItem, id=sale_id)
+    sale.delete()
+    return redirect(reverse("sales:list"))
+
+
+def edit_sale(request, sale_id):
+    """
+    Edit saleItem
+    """
+    sale = get_object_or_404(SaleItem, id=sale_id)
+    oldSaleQuantity = int(sale.quantity)
+    product = sale.product
+    if request.method == "POST":
+        form = SaleItemForm(request.POST, instance=sale)
+        if form.is_valid():
+            saleItem = form.save(commit=False)
+            # adjust prouducts quantity
+            newSaleQuantity = int(saleItem.quantity)
+            print("old", oldSaleQuantity, " new: ", newSaleQuantity)
+            if oldSaleQuantity != newSaleQuantity:
+                print("changing quantity")
+                # sale quantity has been updated
+                if newSaleQuantity < oldSaleQuantity:
+                    diff = oldSaleQuantity - newSaleQuantity
+                    product.quantity += diff
+                    product.save()
+                elif newSaleQuantity > oldSaleQuantity:
+                    # quantity has been added for the sale
+                    diff = newSaleQuantity - oldSaleQuantity
+                    product.quantity -= diff
+                    product.save()
+            saleItem.save()
+
+            return redirect(reverse("sales:list"))
+        else:
+            print(form.errors)
+            if (
+                "Quantity can not be greater than available product quantity!"
+                in form.errors["__all__"][0]
+            ):
+                error = form.errors["__all__"][0]
+            template_name = "sales/edit.html"
+            context = {
+                "sale_form": form,
+                "errors": error,
+            }
+            return render(request, template_name, context)
+
+    form = SaleItemForm(instance=sale)
+    template_name = "sales/edit.html"
+    context = {
+        "sale_form": form,
+    }
+    return render(request, template_name, context)

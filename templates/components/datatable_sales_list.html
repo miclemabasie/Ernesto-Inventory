@@ -3,10 +3,11 @@
         <tr>
             <th>#</th>
             <th>Product Name</th>
-            <th>Category</th>
-            <th>Price</th>
             <th>Quantity</th>
+            <th>Price</th>
+            <th>T. Price</th>
             <th>Date</th>
+            <th>TrasactionID</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -14,11 +15,12 @@
         {% for sale in saleItems %}
         <tr>
             <td >{{forloop.counter}}</td>
-            <td>{{sale.name}}</td>
-            <td>{{sale.product.category}}</td>
-            <td>{{sale.price}}</td>
-            <td {% if product.reorder_level >= product.quantity %}class="bg-warning"{% endif %}>{{product.quantity}}</td>
-            <td>{{product.reorder_level}}</td>
+            <td>{{sale.product.name}}</td>
+            <td>{{sale.quantity}}</td>
+            <td>{{sale.unit_price}}</td>
+            <td>{{sale.total_price}}</td>
+            <td>{{sale.product.created}}</td>
+            <td>{{sale.sale.transaction_id}}</td>
             <td style="text-align: right">
                 <div class="dropdown">
                     <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -26,9 +28,9 @@
                         Actions
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'products:update-product' product.id %}">Edit product</a></li>
-                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'products:delete-product' product.id %}">Delete Product</a></li>
-                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'products:product-detail' product.id %}">Product Detail</a></li>
+                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'sales:sale-detail' sale.id %}">Sale Detail</a></li>
+                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'sales:sale-delete' sale.id %}">Delete Sale</a></li>
+                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'sales:sale-edit' sale.id %}">Edit Sale</a></li>
                     </ul>
                 </div>
             </td>
@@ -42,6 +44,7 @@
             <th>Price</th>
             <th>Quantity</th>
             <th>Date</th>
+            <th>TrasactionID</th>
             <th>Action</th>
         </tr>
     </tfoot>

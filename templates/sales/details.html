@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h1>Transaction ID: {{sale.sale.transaction_id}} </h1>
+    <h1>Product: {{sale.product}}</h1>
+    
+    
+    <h1>Quantity: {{sale.quantity}} </h1>
+    <h1>Unit Price: {{sale.unit_price}} </h1>
+    <h1>Total Price (UnitPrice * Quantity): {{sale.total_price}} </h1>
+    <h1>Date: {{sale.created}} </h1>
+    <h1>Date Updated: {{sale.updated}} </h1>
+    <hr>
+    <h1>Products sold with:</h1>
+    {% for sale in products_with %}
+        <h3>Name: {{sale.product.name}} </h3>
+        <h3>Quantity: {{sale.quantity}} </h3>
+        <h3>UnitPrice: {{sale.unit_price}} </h3>
+        <h3>Total Price: {{sale.total_price}} </h3>
+    {% endfor %}
+
+</div>
+{% endblock content %}
