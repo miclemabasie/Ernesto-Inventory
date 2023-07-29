@@ -1,0 +1,41 @@
+<form id="customerForm" method="post">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mt-4">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    {{customer_add_form.name}}
+                </div>
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    {{customer_add_form.phone}}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mt-4">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    {{customer_add_form.email}}
+                </div>
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    {{customer_add_form.address}}
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="mt-4 btn btn-primary form-control btn-block">Add Customer</button>
+            </div>
+        </div>
+    </div>
+</form>

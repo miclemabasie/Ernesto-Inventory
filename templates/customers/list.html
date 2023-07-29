@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="container mt-5">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#all-customers">All Customers</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " data-toggle="tab" href="#add-customer">Add Customer</a>
+    </li>
+
+  </ul>
+
+  <div class="tab-content mt-2">
+    <div id="all-customers" class="tab-pane fade show active">
+
+      {% include "../components/datatable_customer_list.html" %}
+    </div>
+
+    <div id="add-customer" class="tab-pane fade">
+      <h3>Add Customer Section</h3>
+      <div id="transaction-message"></div>
+
+      {% include "../components/add_customer.html" %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+  $(document).ready( function () {
+    $('#myTable').DataTable();
+    } );
+  let table3 = new DataTable('#customerTable');
+
+  // Get the form 
+  const form = document.getElementById("customerForm"),
+  name = document.getElementById("id_name"),
+  phone = document.getElementById("id_phone"),
+  email = document.getElementById("id_email"),
+  address = document.getElementById("id_address")
+  csrf = document.getElementsByName("csrfmiddlewaretoken")
+
+  csrf = csrf[0].value
+
+  const url = "{% url 'customers:add-customer-view' %}"
+
+
+  function sendCustomerCreateData(url, Cname, phone, email, address, csrf) {
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrf
+      },
+      body: JSON.stringify({
+        name: Cname,
+        phone: phone,
+        email: email,
+        address: address
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+      })
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault()
+    sendCustomerCreateData(url, name, phone, email, address, csrf)
+  })
+
+</script>
+{% endblock scripts %}

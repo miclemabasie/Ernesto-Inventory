@@ -1,0 +1,44 @@
+<table id="customerTable" class="display">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td >{{forloop.counter}}</td>
+            <td>{{customer.name}}</td>
+            <td>{{customer.phone}}</td>
+            <td>{{customer.email}}</td>
+            {% comment %} <td {% if customer.reorder_level >= customer.quantity %}class="bg-warning"{% endif %}>{{customer.quantity}}</td> {% endcomment %}
+            <td>{{customer.address}}</td>
+            <td style="text-align: right">
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Actions
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'customers:customer-edit-view' customer.id %}">Edit Customer</a></li>
+                    </ul>
+                </div>
+            </td>
+            {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Action</th>
+        </tr>
+    </tfoot>
+</table>
