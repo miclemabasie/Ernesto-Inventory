@@ -24,22 +24,30 @@ def customer_list_view(request):
 def customer_add_view(request):
     if request.method == "POST":
         data = json.loads(request.body)
+        print("######################", data)
         # Create a new customer
         name = data["name"]
         phone = data["phone"]
         address = "None"
         email = "None"
+
+        # Check if customer exists in database with same credentials (name, and phone)
+        queryset = Customer.objects.filter(name=name, phone=phone)
+        if len(queryset) > 0:
+            data = {"status": "warning", "message": "Customer already exists!"}
+            return JsonResponse(data)
+
+        # Verify if address and email was provided in the fronend since there are optional
         if data["address"]:
             address = data["address"]
         if data["email"]:
             email = data["email"]
+
         customer = Customer.objects.create(
-            name=name, phone=phone, address=address, email="email"
+            name=name, phone=phone, address=address, email=email
         )
-        # customer.save()
-
+        customer.save()
         data = {"status": "success", "message": "Customer created successfully!"}
-
         return JsonResponse(data)
     return redirect("customers:list")
 

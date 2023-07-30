@@ -9,6 +9,7 @@
       <a class="nav-link active" data-toggle="tab" href="#all-customers">All Customers</a>
     </li>
     <li class="nav-item">
+     
       <a class="nav-link " data-toggle="tab" href="#add-customer">Add Customer</a>
     </li>
 
@@ -60,15 +61,23 @@
         "X-CSRFToken": csrf
       },
       body: JSON.stringify({
-        name: Cname,
-        phone: phone,
-        email: email,
-        address: address
+        name: Cname.value,
+        phone: phone.value,
+        email: email.value,
+        address: address.value
       }),
     })
       .then(response => response.json())
       .then(data => {
         console.log(data)
+        showAlert(data.status, data, "transaction-message")
+        if (data.status === "success") {
+          clearInputFields(name, phone, email, address)
+        }
+      })
+
+      .catch(data => {
+        showAlert(data.status, data, "transaction-message")
       })
   }
 
@@ -76,6 +85,33 @@
     e.preventDefault()
     sendCustomerCreateData(url, name, phone, email, address, csrf)
   })
+
+
+  // Function to clear input fields
+  function clearInputFields(name, phone, email, address) {
+    name.value = ""
+    phone.value = ""
+    email.value = ""
+    address.value = ""
+  }
+
+
+  function showAlert(type, data, parentElement) {
+    var alertElement = document.getElementById('transaction-message');
+      alertElement.classList.remove('hide');
+      let msg = `<div id="myAlert" class="alert alert-${type} fade show" role="alert">
+        ${data.message}
+      </div>`
+      let alertBox = document.getElementById(`${parentElement}`)
+      alertBox.innerHTML = msg
+       // Get the alert element
+
+      // Automatically hide the alert after 3 seconds (3000 milliseconds)
+      setTimeout(function() {
+        // Add the 'hide' class to the alert element
+        alertElement.classList.add('hide');
+      }, 3000);
+  }
 
 </script>
 {% endblock scripts %}

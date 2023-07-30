@@ -1,3 +1,4 @@
+from typing import Iterable, Optional
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
@@ -10,3 +11,8 @@ class Customer(models.Model):
         verbose_name=_("Address"), max_length=200, null=True, blank=True
     )
     email = models.EmailField(verbose_name=_("Email"), null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.upper()
+
+        super().save(*args, **kwargs)
