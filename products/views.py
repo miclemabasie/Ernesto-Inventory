@@ -8,12 +8,20 @@ import json
 from django.utils.text import slugify
 from django.urls import reverse
 from django.core.exceptions import ValidationError
+from sales.models import SaleItem
+from django.db.models import Sum
 
 
 @login_required
 def home_view(request):
     template_name = "core/home.html"
-    context = {"section": "home"}
+    sales_data = SaleItem.objects.values("created__month").annotate(
+        total_price=Sum("price")
+    )
+    context = {
+        "section": "home",
+        "sales_data": sales_data,
+    }
     return render(request, template_name, context)
 
 
