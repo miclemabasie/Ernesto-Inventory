@@ -10,14 +10,18 @@ from django.urls import reverse
 from django.core.exceptions import ValidationError
 from sales.models import SaleItem
 from django.db.models import Sum
+from .utils import get_sales_data
 
 
 @login_required
 def home_view(request):
     template_name = "core/home.html"
-    sales_data = SaleItem.objects.values("created__month").annotate(
-        total_price=Sum("price")
-    )
+    period = "day"
+    sales_data = get_sales_data(period)
+    if request.method == "POST":
+        data = {}
+        data.update({"sales_data": sales_data})
+        return JsonResponse(data)
     context = {
         "section": "home",
         "sales_data": sales_data,
