@@ -11,20 +11,31 @@ from django.core.exceptions import ValidationError
 from sales.models import SaleItem
 from django.db.models import Sum
 from .utils import get_sales_data
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
+@csrf_exempt
 @login_required
 def home_view(request):
     template_name = "core/home.html"
-    period = "day"
+    period = "month"
     sales_data = get_sales_data(period)
     if request.method == "POST":
         data = {}
+        reqData = json.loads(request.body)
+        print(reqData)
+
+        chartType = reqData["chartType"]
         data.update({"sales_data": sales_data})
+        data["chartType"] = "bar"
+        data["values"] = sales_data["values"]
+        data["labels"] = sales_data["labels"]
         return JsonResponse(data)
     context = {
         "section": "home",
-        "sales_data": sales_data,
+        "values": sales_data["values"],
+        "labels": sales_data["labels"],
     }
     return render(request, template_name, context)
 

@@ -4,7 +4,6 @@
 {% block content %}
 <div class="container">
     <h1>Sales Overview</h1>
-    {{sales_data}}
     <div class="bt-5">
         <canvas id="myChart"></canvas>
       </div>
@@ -18,25 +17,55 @@
 {% block scripts %}
 <script src="{% static 'bootstrap/js/chatjs.js' %}"></script>
 <script>
-    const ctx = document.getElementById('myChart');
-  
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
+    
+    
+    const drawChart = (values, labels, chartType) => {
+      const ctx = document.getElementById('myChart');
+      new Chart(ctx, {
+        type: chartType,
+        data: {
+          labels: [ {% for month in labels %} "{{ month }}", {%endfor%}],
+          datasets: [{
+            label: '# of Votes',
+            data: values,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           }
         }
-      }
-    });
+      });
+    }    
+
+    
+    url = "{% url 'home' %}"
+    const getChartData = (url) => {
+      
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chartType: "pie"
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        var values = data.values
+        var labels = []
+        labels = data.labels
+        chartType = data.chartType
+        drawChart(values, labels, chartType)
+    })
+
+  }
+
+  getChartData(url)
   </script>
 {% endblock scripts %}

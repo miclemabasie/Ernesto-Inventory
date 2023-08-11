@@ -13,11 +13,33 @@ def get_sales_data(period):
     sales_data = SaleItem.objects.values(f"created__{period}").annotate(
         total_price=Sum("total_price")
     )
-    # convert the queryset into a list
-    sales_data = list(sales_data)
+    # Dict to map each month to a list which contains [0] => its month number, [1] => its total sales value
+    data = {
+        "Jan": [1, 0],
+        "Feb": [2, 0],
+        "Mar": [3, 0],
+        "Apr": [4, 0],
+        "May": [5, 0],
+        "Jun": [6, 0],
+        "Jul": [7, 0],
+        "Aug": [8, 0],
+        "Sep": [9, 0],
+        "Oct": [10, 0],
+        "Nov": [11, 0],
+        "Dec": [12, 0],
+    }
 
-    total_prices = deque()
-    print("############### sales data", sales_data)
-    for _ in sales_data:
-        total_prices.appendleft(_["total_price"])
-    return list(total_prices)
+    for k, v in data.items():
+        for i in range(len(sales_data)):
+            print(v)
+            if v[0] == sales_data[i]["created__month"]:
+                data[k][1] = sales_data[i]["total_price"]
+
+    for k, v in data.items():
+        data[k] = v[1]
+    months = list(data.keys())
+    values = list(data.values())
+
+    data = {"labels": months, "values": values}
+    print("sales data ###################", data)
+    return data
