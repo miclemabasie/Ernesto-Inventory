@@ -20,4 +20,9 @@ urlpatterns = [
         views.delete_category_view,
         name="delete-category",
     ),
+    path(
+        "export_porducts_to_csv/",
+        views.export_product_data,
+        name="export_porducts_to_csv",
+    ),
 ]

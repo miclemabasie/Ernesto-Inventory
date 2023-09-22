@@ -2,12 +2,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from .models import Sale, SaleItem
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import json
 from .forms import SaleItemForm
 from products.decorators import require_post
 from products.models import Product
 from django.views.decorators.csrf import csrf_exempt
+from openpyxl import Workbook
 
 
 @login_required
@@ -202,5 +203,22 @@ def edit_sale(request, sale_id):
     template_name = "sales/edit.html"
     context = {
         "sale_form": form,
+    }
+    return render(request, template_name, context)
+
+
+def handle_product_return(request, sale_id):
+    """
+    Handling products returned by customer after being bougth
+    """
+    # Get the sale item with the sale id
+    sale_item = get_object_or_404(Sale, id=sale_id)
+    # print out all the products in the sale item
+    for product in sale_item:
+        print(product)
+
+    template_name = "sales/return_products.html"
+    context = {
+        "page": "Returned Products",
     }
     return render(request, template_name, context)

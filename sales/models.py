@@ -7,7 +7,6 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from django.db.models import Sum
 
-
 User = get_user_model()
 
 
