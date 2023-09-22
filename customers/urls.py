@@ -11,4 +11,7 @@ urlpatterns = [
         "edit/<int:customer_id>/", views.edit_customer_view, name="customer-edit-view"
     ),
     path("add-customer/", views.customer_add_view, name="add-customer-view"),
+    path(
+        "backup-customer-data/", views.backup_customer_data, name="backup_customer_data"
+    ),
 ]

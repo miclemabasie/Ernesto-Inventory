@@ -14,6 +14,7 @@ from .utils import get_sales_data
 from django.views.decorators.csrf import csrf_exempt
 import json
 from openpyxl import Workbook
+from datetime import datetime
 
 
 @csrf_exempt
@@ -236,8 +237,21 @@ def export_product_data(request):
     response = HttpResponse(
         content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
+
+    day = str(datetime.today().day)
+    month = str(datetime.today().month)
+    year = str(datetime.today().year)
+
     response["Content-Disposition"] = (
-        "attachment; filename=" + "products" + "_report" + ".xlsx"
+        "attachment; filename="
+        + "products"
+        + "_report_"
+        + day
+        + "_"
+        + month
+        + "_"
+        + year
+        + ".xlsx"
     )
     wb.save(response)
     return response
