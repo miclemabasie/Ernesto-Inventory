@@ -46,6 +46,7 @@ LOCAL_APPS = [
     "products.apps.ProductsConfig",
     "customers.apps.CustomersConfig",
     "settings.apps.SettingsConfig",
+    "commons.apps.CommonsConfig",
     "crispy_forms",
     "crispy_bootstrap5",
 ]
@@ -85,6 +86,9 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "commons.context_processors.total_products",
+                "commons.context_processors.total_sales",
+                "commons.context_processors.total_customers",
             ],
         },
     },

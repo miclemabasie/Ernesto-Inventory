@@ -3,10 +3,27 @@
 
 {% block content %}
 <div class="container">
+  <div class="dash-components">
+    <div class="row">
+      <div class="col-md-4">
+        {% include "../components/dashboard_components/products.html" %}
+      </div>
+      <div class="col-md-4">
+        {% include "../components/dashboard_components/sales.html" %}
+      </div>
+      <div class="col-md-4">
+        {% include "../components/dashboard_components/customers.html" %}
+      </div>
+    </div>
+  </div>
     <h1>Sales Overview</h1>
     <div class="bt-5">
         <canvas id="myChart"></canvas>
       </div>
+
+      <hr>
+
+      
 </div>
 
 

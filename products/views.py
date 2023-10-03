@@ -56,7 +56,6 @@ def product_list(request):
         "product_form": product_add_form,
         "category_form": category_add_form,
     }
-
     return render(request, template_name, context)
 
 
