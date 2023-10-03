@@ -127,7 +127,6 @@ def update_product_view(request, product_id):
             return redirect(f"/products/?updatedproduct={product_id}")
             # return redirect(reverse("products:list"))
         else:
-            print("#$###########3", form.errors)
             raise ValidationError("Invalid product data")
     form = ProductAddForm(instance=product)
     template_name = "products/update.html"
@@ -174,14 +173,12 @@ def category_add_view(request):
 
 @login_required
 def category_edit_view(request, category_id):
-    print(f"This is the cat id: @####", category_id)
     category = get_object_or_404(Category, id=category_id)
     if request.method == "POST":
         form = CategoryAddForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
             return redirect(reverse("products:list"))
-        print("#########33", form.errors)
     form = CategoryAddForm(instance=category)
     template_name = "products/category_edit.html"
     context = {
