@@ -36,3 +36,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.username
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="profiles", null=True, blank=True)
+    phone = models.CharField(max_length=20, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s profile"

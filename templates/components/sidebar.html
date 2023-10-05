@@ -4,7 +4,11 @@
       <div class="brand-logo d-flex align-items-center justify-content-between">
         <a href="./index.html" class="text-nowrap logo-img">
           {% comment %} <img src="{% static 'assets/images/logos/dark-logo.svg' %}" width="180" alt="" /> {% endcomment %}
-          <h1 class="text-white">{{site_settings.company_name}}</h1>
+          {% if site_settings.company_name %}
+          <h1 class="text-white">{{site_settings.company_name}}</h1>                 
+          {% else %}
+          <h1 class="text-white">SOLIX INVENT</h1>                 
+          {% endif %}
         </a>
         <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
           <i class="ti ti-x fs-8"></i>

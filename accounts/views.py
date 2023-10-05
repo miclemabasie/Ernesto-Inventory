@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from .forms import LoginForm
@@ -6,9 +6,9 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileForm
 from django.contrib.auth.decorators import permission_required
-
+from .models import Profile
 
 User = get_user_model()
 
@@ -52,13 +52,14 @@ def list_users(request):
 @permission_required("accounts.add_user", "accounts.change_user")
 def add_user(request):
     form = CustomUserCreationForm(request.POST or None)
+    profile_form = ProfileForm(request.POST or None)
     if request.method == "POST":
         print("The form was posted")
         if form.is_valid():
             data = form.cleaned_data
-            print(data)
+            profile_image = request.FILES.get("image")
+            phone = request.POST.get("phone")
             user_group = request.POST["grouptype"]
-            print("#####", user_group)
             # Get the group matching group type
             try:
                 group = Group.objects.get(name=user_group)
@@ -86,21 +87,25 @@ def add_user(request):
             user.save()
             user.groups.add(group)
             user.save()
+            # Create a profile for the user aswell
+
+            profile = Profile.objects.create(
+                user=user, image=profile_image, phone=phone
+            )
+            profile.save()
             return redirect(reverse("home"))
         else:
             print(form.errors)
     template_name = "accounts/add_user.html"
-    context = {
-        "form": form,
-    }
+    context = {"form": form, "profile_form": profile_form}
     return render(request, template_name, context)
 
 
-{
-    "email": "test@mail.com",
-    "username": "tester",
-    "first_name": "testing",
-    "last_name": "testee",
-    "password1": "12electron@3#",
-    "password2": "12electron@3#",
-}
+@login_required
+@permission_required("accounts.change_user")
+def edit_user(request, user_id):
+    if request.method == POST:
+        user = get_object_or_404(User, id=user_id)
+        data = request.POST
+        user.username = data.username
+        # get profile associated with user

@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from .models import User
+from .models import User, Profile
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -79,3 +79,13 @@ class LoginForm(forms.Form):
         #     self.add_error('password', 'Invalid password')
 
         return cleaned_data
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["image", "phone"]
+
+    widgets = {
+        "phone": forms.TextInput(attrs={"class": "form-control"}),
+    }
