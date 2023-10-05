@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Settings</h1>
+    <form action="{% url 'settings:settings' %}" method="post" enctype="multipart/form-data">
+        {{form.as_p}}
+        <div class="form-group">
+            <input type="submit" value="Submit" class="btn btn-success form-control ">
+        </div>
+        {% csrf_token %}
+    </form>
+</div>
+
+{{form.timezone.}}
+{% endblock content %}

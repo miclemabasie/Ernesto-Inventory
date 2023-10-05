@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container">
+    <h1>Add User</h1>
+    <form action="{% url "accounts:add_user" %}" method="post">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            <label for="email">Email</label>
+            {{ form.email }}
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="username">Username</label>
+            {{ form.username }}
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="first_name">First Name</label>
+            {{ form.first_name }}
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="last_name">Last Name</label>
+            {{ form.last_name }}
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="last_name">User Type</label>
+            <select name="grouptype" class="form-select" aria-label="Default select example">
+                <option selected>-----------</option>
+                <option value="business_administrator">Business Admin</option>
+                <option value="sales_men">Sales Man</option>
+              </select>
+        </div>
+
+
+        <div class="form-group mb-3">
+            <label for="password1">Password</label>
+            {{ form.password1 }}
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="password1">Password Confirm</label>
+            {{ form.password2 }}
+        </div>
+
+        
+
+
+        <button type="submit" class="btn btn-primary form-control">Submit</button>
+    </form>
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+    let pas1 = document.getElementById("id_password1")
+    let pas2 = document.getElementById("id_password2")
+    pas1.classList.add("form-control")
+    pas2.classList.add("form-control")
+</script>
+{% endblock scripts %}

@@ -3,13 +3,27 @@ from .models import User
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import password_validation
 
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = User
-        fields = ["email", "username", "first_name", "last_name"]
+        fields = [
+            "email",
+            "username",
+            "first_name",
+            "last_name",
+        ]
         error_class = "error"
+
+        widgets = {
+            "email": forms.EmailInput(attrs={"class": "form-control"}),
+            "username": forms.TextInput(attrs={"class": "form-control"}),
+            "first_name": forms.TextInput(attrs={"class": "form-control"}),
+            "last_name": forms.TextInput(attrs={"class": "form-control"}),
+        }
 
 
 class CustomUserChangeForm(UserChangeForm):

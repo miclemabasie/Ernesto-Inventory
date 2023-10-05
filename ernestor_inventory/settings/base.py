@@ -89,6 +89,7 @@ TEMPLATES = [
                 "commons.context_processors.total_products",
                 "commons.context_processors.total_sales",
                 "commons.context_processors.total_customers",
+                "settings.context_processors.site_settings",
             ],
         },
     },
