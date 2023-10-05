@@ -7,7 +7,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Modernize Free</title>
+  {% if site_settings.logo %}
   <link rel="shortcut icon" type="image/png" href="{{site_settings.logo.url}}" />
+  {% endif %}
   <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}" />
   {% comment %} <link rel="stylesheet" href="{% static 'datatables/style.css' %}" /> {% endcomment %}
   <link href="{% static 'bootstrap/css/jqueryui.css' %}" rel="stylesheet">

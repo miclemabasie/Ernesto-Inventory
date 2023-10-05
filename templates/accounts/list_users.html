@@ -25,7 +25,7 @@
                     <td>{{ user.last_name }}</td>
                     <td>{{ user.is_staff }}</td>
                     <td>{{ user.is_active }}</td>
-                    <td><button class="btn btn-primary">Edit</button></td>
+                    <td><a href="{% url 'accounts:edit_user' user.username %}" class="btn btn-primary">Edit</a></td>
                 </tr>
             {% endfor %}
         </tbody>

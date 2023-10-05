@@ -32,6 +32,13 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ["email", "username", "first_name", "last_name"]
         error_class = "error"
 
+        widgets = {
+            "email": forms.EmailInput(attrs={"class": "form-control"}),
+            "username": forms.TextInput(attrs={"class": "form-control"}),
+            "first_name": forms.TextInput(attrs={"class": "form-control"}),
+            "last_name": forms.TextInput(attrs={"class": "form-control"}),
+        }
+
 
 class LoginForm1(forms.Form):
     email = forms.CharField(required=True, widget=forms.EmailField)

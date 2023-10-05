@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
-from .forms import CustomUserCreationForm, ProfileForm
+from .forms import CustomUserCreationForm, ProfileForm, CustomUserChangeForm
 from django.contrib.auth.decorators import permission_required
 from .models import Profile
 
@@ -103,9 +103,26 @@ def add_user(request):
 
 @login_required
 @permission_required("accounts.change_user")
-def edit_user(request, user_id):
-    if request.method == POST:
-        user = get_object_or_404(User, id=user_id)
-        data = request.POST
-        user.username = data.username
+def edit_user(request, username):
+    user = get_object_or_404(User, username=username)
+    form = CustomUserChangeForm(request.POST or None, instance=user)
+    # Get the user's profile
+    profile = user.profile
+    profile_form = ProfileForm(request.POST or None, instance=profile)
+    if request.method == "POST":
+        if profile_form.is_valid() and form.is_valid():
+            form.save()
+            print("form is saved")
+            return redirect(reverse("home"))
+        else:
+            print("ERRORS::: ###########")
+            print(form.errors)
+            print(profile_form.errors)
         # get profile associated with user
+    template_name = "accounts/edit_user.html"
+    context = {
+        "username": user.username,
+        "form": form,
+        "profile_form": profile_form,
+    }
+    return render(request, template_name, context)
