@@ -34,7 +34,9 @@ def login_view(request):
 
 
 @login_required
+@permission_required("accounts.view_user")
 def list_users(request):
+    # if request.user.has_perm("accounts.view_user"):
     users = User.objects.filter(is_active=True)
     template_name = "accounts/list_users.html"
     context = {
@@ -42,6 +44,8 @@ def list_users(request):
     }
 
     return render(request, template_name, context)
+    # else:
+    #     return HttpResponse("Not allowed for you!")
 
 
 @login_required
@@ -54,8 +58,14 @@ def add_user(request):
             data = form.cleaned_data
             print(data)
             user_group = request.POST["grouptype"]
+            print("#####", user_group)
             # Get the group matching group type
-            group = Group.objects.get(name=user_group)
+            try:
+                group = Group.objects.get(name=user_group)
+            except Group.DoesNotExist:
+                # Assing user to sales man by default
+                group = Group.objects.get(name="sales_men")
+
             email = data["email"]
             username = data["username"]
             first_name = data["first_name"]
