@@ -10,9 +10,18 @@ from .backup_handlers import (
     export_sale_data,
     export_salesitem_data,
 )
+from .import_handlers import (
+    import_category_data,
+    import_product_data,
+    import_customer_data,
+    import_sale_data,
+    import_sale_item_data,
+)
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required
 def export_data(request):
     """
     Handle the backing up of data to a CSV file
@@ -60,8 +69,21 @@ def import_data(request):
         # Get the file from the request object
         file = request.FILES.get("data")
         wb = load_workbook(filename=file)
-        ps = wb.active
-        print(ps)
+        product_sheet = wb.active
+        category_sheet = wb.get_sheet_by_name("Categories")
+        saleitems_sheet = wb.get_sheet_by_name("SaleItems")
+        sale_sheet = wb.get_sheet_by_name("Sales")
+        customers_sheet = wb.get_sheet_by_name("Customers")
+
+        print(
+            product_sheet, category_sheet, saleitems_sheet, sale_sheet, customers_sheet
+        )
+        import_category_data(category_sheet)
+        import_product_data(product_sheet, request)
+        import_customer_data(customers_sheet)
+        import_sale_data(sale_sheet, request)
+        import_sale_item_data(saleitems_sheet)
+
         return redirect(reverse("home"))
 
     template_name = "core/import_data.html"

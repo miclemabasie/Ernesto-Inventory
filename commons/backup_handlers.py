@@ -6,15 +6,16 @@ from sales.models import SaleItem, Sale
 
 def export_product_data(ws):
     ws.cell(row=1, column=1).value = "ID"
-    ws.cell(row=1, column=2).value = "User"
-    ws.cell(row=1, column=3).value = "Category"
-    ws.cell(row=1, column=4).value = "Description"
-    ws.cell(row=1, column=5).value = "Slug"
-    ws.cell(row=1, column=6).value = "Quantity"
-    ws.cell(row=1, column=7).value = "ReorderLevel"
-    ws.cell(row=1, column=8).value = "Active"
-    ws.cell(row=1, column=9).value = "Created"
-    ws.cell(row=1, column=10).value = "Updated"
+    ws.cell(row=1, column=2).value = "Name"
+    ws.cell(row=1, column=3).value = "User"
+    ws.cell(row=1, column=4).value = "Category"
+    ws.cell(row=1, column=5).value = "Description"
+    ws.cell(row=1, column=6).value = "Slug"
+    ws.cell(row=1, column=7).value = "Quantity"
+    ws.cell(row=1, column=8).value = "ReorderLevel"
+    ws.cell(row=1, column=9).value = "Active"
+    ws.cell(row=1, column=10).value = "Created"
+    ws.cell(row=1, column=11).value = "Updated"
 
     products = Product.objects.all()
     # get the lenght of the data
@@ -22,15 +23,16 @@ def export_product_data(ws):
     index = 2
     for product in products:
         ws.cell(row=index, column=1).value = str(product.id)
-        ws.cell(row=index, column=2).value = str(product.user.username)
-        ws.cell(row=index, column=3).value = str(product.category)
-        ws.cell(row=index, column=4).value = str(product.description)
-        ws.cell(row=index, column=5).value = str(product.slug)
-        ws.cell(row=index, column=6).value = str(product.quantity)
-        ws.cell(row=index, column=7).value = str(product.reorder_level)
-        ws.cell(row=index, column=8).value = str(product.active)
-        ws.cell(row=index, column=9).value = str(product.created)
-        ws.cell(row=index, column=10).value = str(product.updated)
+        ws.cell(row=index, column=2).value = str(product.name)
+        ws.cell(row=index, column=3).value = str(product.user.username)
+        ws.cell(row=index, column=4).value = str(product.category)
+        ws.cell(row=index, column=5).value = str(product.description)
+        ws.cell(row=index, column=6).value = str(product.slug)
+        ws.cell(row=index, column=7).value = str(product.quantity)
+        ws.cell(row=index, column=8).value = str(product.reorder_level)
+        ws.cell(row=index, column=9).value = str(product.active)
+        ws.cell(row=index, column=10).value = str(product.created)
+        ws.cell(row=index, column=11).value = str(product.updated)
         index += 1
 
 
@@ -84,6 +86,7 @@ def export_salesitem_data(ws):
     ws.cell(row=1, column=4).value = "Total Price"
     ws.cell(row=1, column=5).value = "Sale Transaction ID"
     ws.cell(row=1, column=6).value = "Date Created"
+    ws.cell(row=1, column=7).value = "Quantitty"
 
     sales = SaleItem.objects.filter(sale__validated=True)
     print("######", sales[0].product)
@@ -95,6 +98,7 @@ def export_salesitem_data(ws):
         ws.cell(row=index, column=4).value = str(sale.total_price)
         ws.cell(row=index, column=5).value = str(sale.sale.transaction_id)
         ws.cell(row=index, column=6).value = str(sale.created)
+        ws.cell(row=index, column=7).value = str(sale.quantity)
         index += 1
 
 
