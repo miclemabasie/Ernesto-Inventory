@@ -31,7 +31,6 @@ def get_sales_data(period):
 
     for k, v in data.items():
         for i in range(len(sales_data)):
-            print(v)
             if v[0] == sales_data[i]["created__month"]:
                 data[k][1] = sales_data[i]["total_price"]
 
@@ -41,5 +40,4 @@ def get_sales_data(period):
     values = list(data.values())
 
     data = {"labels": months, "values": values}
-    print("sales data ###################", data)
     return data

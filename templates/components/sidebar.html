@@ -84,31 +84,21 @@
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
             <span class="hide-menu text-white">BACKUPS & RESTORE</span>
           </li>
-
           <li class="sidebar-item ">
-            <a class="text-white sidebar-link" href="{% url 'products:export_porducts_to_csv' %}" aria-expanded="false">
+            <a class="text-white sidebar-link" href="{% url 'commons:export_data' %}" aria-expanded="false">
               <span>
-                <i class="ti ti-files"></i>
+                <i class="ti ti-crown"></i>
               </span>
-              <span class="hide-menu">Backup Proudcts</span>
+              <span class="hide-menu">Export Data</span>
             </a>
           </li>
 
           <li class="sidebar-item ">
-            <a class="text-white sidebar-link" href="{% url 'sales:export_sales_data' %}" aria-expanded="false">
+            <a class="text-white sidebar-link" href="{% url 'commons:import_data' %}" aria-expanded="false">
               <span>
                 <i class="ti ti-crown"></i>
               </span>
-              <span class="hide-menu">Backup Sales</span>
-            </a>
-          </li>
-
-          <li class="sidebar-item ">
-            <a class="text-white sidebar-link" href="{% url 'customers:backup_customer_data' %}" aria-expanded="false">
-              <span>
-                <i class="ti ti-crown"></i>
-              </span>
-              <span class="hide-menu">Backup Customers</span>
+              <span class="hide-menu">Import Data</span>
             </a>
           </li>
 

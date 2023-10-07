@@ -12,5 +12,4 @@ urlpatterns = [
     path("delete-sale/<int:sale_id>/", views.delete_sale, name="sale-delete"),
     path("edit/<int:sale_id>/", views.edit_sale, name="sale-edit"),
     path("returns/<int:sale_id>/", views.handle_product_return, name="handle_returns"),
-    path("export-sales-data/", views.export_sales_data, name="export_sales_data"),
 ]

@@ -13,7 +13,7 @@ from django.db.models import Sum
 from .utils import get_sales_data
 from django.views.decorators.csrf import csrf_exempt
 import json
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 from datetime import datetime
 
 
@@ -26,7 +26,6 @@ def home_view(request):
     if request.method == "POST":
         data = {}
         reqData = json.loads(request.body)
-        print(reqData)
 
         chartType = reqData["chartType"]
         data.update({"sales_data": sales_data})
@@ -147,7 +146,6 @@ def delete_product_view(request, product_id):
 @login_required
 @require_post
 def category_add_view(request):
-    print("Request to add")
     data = json.loads(request.body)
     category_name = data["name"]
 
@@ -192,62 +190,3 @@ def delete_category_view(request, category_id):
     # reqeust to delete product
     cateogry.delete()
     return redirect(reverse("products:list"))
-
-
-def export_product_data(request):
-    """
-    Handle the backing up of data to a CSV file
-    """
-    wb = Workbook()
-    # grab the active worksheet
-    ws = wb.active
-    # Write the column headers
-    ws.cell(row=1, column=1).value = "id"
-    ws.cell(row=1, column=2).value = "User"
-    ws.cell(row=1, column=3).value = "Category"
-    ws.cell(row=1, column=4).value = "Description"
-    ws.cell(row=1, column=5).value = "Slug"
-    ws.cell(row=1, column=6).value = "Quantity"
-    ws.cell(row=1, column=7).value = "ReorderLevel"
-    ws.cell(row=1, column=8).value = "Active"
-    ws.cell(row=1, column=9).value = "Created"
-    ws.cell(row=1, column=10).value = "Updated"
-
-    products = Product.objects.all()
-    # get the lenght of the data
-    data_len = len(products)
-    index = 2
-    for product in products:
-        ws.cell(row=index, column=1).value = str(product.id)
-        ws.cell(row=index, column=2).value = str(product.user.username)
-        ws.cell(row=index, column=3).value = str(product.category)
-        ws.cell(row=index, column=4).value = str(product.description)
-        ws.cell(row=index, column=5).value = str(product.slug)
-        ws.cell(row=index, column=6).value = str(product.quantity)
-        ws.cell(row=index, column=7).value = str(product.reorder_level)
-        ws.cell(row=index, column=8).value = str(product.active)
-        ws.cell(row=index, column=9).value = str(product.created)
-        ws.cell(row=index, column=10).value = str(product.updated)
-        index += 1
-    # Save the spreadsheet and return it to the user
-    response = HttpResponse(
-        content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
-
-    day = str(datetime.today().day)
-    month = str(datetime.today().month)
-    year = str(datetime.today().year)
-
-    response["Content-Disposition"] = (
-        "attachment; filename="
-        + "products"
-        + "_report_"
-        + day
-        + "_"
-        + month
-        + "_"
-        + year
-        + ".xlsx"
-    )
-    wb.save(response)
-    return response

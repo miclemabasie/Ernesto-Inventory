@@ -12,6 +12,7 @@ urlpatterns = [
     path("sales/", include("sales.urls", namespace="sales")),
     path("customers/", include("customers.urls", namespace="customers")),
     path("settings/", include("settings.urls", namespace="settings")),
+    path("commons/", include("commons.urls", namespace="commons")),
 ]
 
 
