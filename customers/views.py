@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from openpyxl import Workbook
 from datetime import datetime
 import pywhatkit
+from .tasks import test_func, send_whatsapp_mail_to_customer
 from datetime import datetime
 
 
@@ -136,16 +137,12 @@ def send_message(request, customer_id):
         message = request.POST.get("message")
         number = customer.phone
         number = f"+237{number}"
-        time = datetime.now()
-        hour = time.hour
-        minute = time.minute + 1
-        print(len(number), number)
         if len(number) == 13:
             print("### Sending mail to ")
             try:
                 # sending message to receiver
                 # using pywhatkit
-                pywhatkit.sendwhatmsg(number, message, hour, minute)
+                send_whatsapp_mail_to_customer.delay(number, message)
                 print("Successfully Sent!")
                 return redirect(reverse("home"))
 
@@ -159,3 +156,8 @@ def send_message(request, customer_id):
     }
 
     return render(request, template_name, context)
+
+
+def test(request):
+    test_func.delay()
+    return HttpResponse("Done")

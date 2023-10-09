@@ -49,6 +49,8 @@ LOCAL_APPS = [
     "commons.apps.CommonsConfig",
     "crispy_forms",
     "crispy_bootstrap5",
+    "celery",
+    "django_celery_results",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
@@ -184,3 +186,16 @@ logging.config.dictConfig(
         },
     }
 )
+
+
+# CELERY SETTINGS
+
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+# CELERY_ACCERPT_CONTENT = ["application/json"]
+# CELERY_RESULT_SERIALIZER = "json"
+# CELERY_TASK_SERIALIZER = "json"
+# CELERY_TIMEZONE = "Africa/Douala"
+# CELERY_RESULT_BACKEND = "django-db"
+# REDIS_HOST = 'localhost'
+# REDIS_PORT = 6379
+# REDIS_DB = 0
