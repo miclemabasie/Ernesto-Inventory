@@ -25,7 +25,8 @@
                         Actions
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li id="" class="dropdown-item"><a class="btn btn-sm" href="{% url 'customers:customer-edit-view' customer.id %}">Edit Customer</a></li>
+                        <li id="" class="dropdown-item"><a class="btn btn-sm btn-warning" href="{% url 'customers:customer-edit-view' customer.id %}">Edit Customer</a></li>
+                        <li id="" class="dropdown-item"><a class="btn btn-sm btn-success" href="{% url 'customers:send_message' customer.id %}">Send Message</a></li>
                     </ul>
                 </div>
             </td>

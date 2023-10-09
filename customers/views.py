@@ -3,9 +3,11 @@ from django.urls import reverse
 from .models import Customer
 from django.http import JsonResponse, HttpResponse
 import json
-from .forms import CustomerAddForm
+from .forms import CustomerAddForm, SendMailForm
 from django.contrib.auth.decorators import login_required
 from openpyxl import Workbook
+from datetime import datetime
+import pywhatkit
 from datetime import datetime
 
 
@@ -74,4 +76,86 @@ def edit_customer_view(request, customer_id):
         "customer": customer,
         "customer_add_form": form,
     }
+    return render(request, template_name, context)
+
+
+def backup_customer_data(request):
+    """
+    Backup all the data related to the customer
+    """
+    wb = Workbook()
+    # grab the active worksheet
+    ws = wb.active
+    # Write the column headers
+    ws.cell(row=1, column=1).value = "id"
+    ws.cell(row=1, column=2).value = "Customer Name"
+    ws.cell(row=1, column=3).value = "Phone"
+    ws.cell(row=1, column=4).value = "address"
+    ws.cell(row=1, column=5).value = "email"
+
+    customers = Customer.objects.all()
+    index = 2
+    for customer in customers:
+        ws.cell(row=index, column=1).value = str(customer.id)
+        ws.cell(row=index, column=2).value = str(customer.name)
+        ws.cell(row=index, column=3).value = str(customer.phone)
+        ws.cell(row=index, column=4).value = str(customer.address)
+        ws.cell(row=index, column=5).value = str(customer.email)
+        index += 1
+    # Save the spreadsheet and return it to the user
+    response = HttpResponse(
+        content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+    day = str(datetime.today().day)
+    month = str(datetime.today().month)
+    year = str(datetime.today().year)
+
+    response["Content-Disposition"] = (
+        "attachment; filename="
+        + "customers"
+        + "_report_"
+        + day
+        + "_"
+        + month
+        + "_"
+        + year
+        + ".xlsx"
+    )
+    wb.save(response)
+    return response
+
+
+def send_message(request, customer_id):
+    """
+    Send whatsapp customer to customer.
+    """
+
+    customer = get_object_or_404(Customer, id=customer_id)
+    if request.method == "POST":
+        # Get the customer's number
+        message = request.POST.get("message")
+        number = customer.phone
+        number = f"+237{number}"
+        time = datetime.now()
+        hour = time.hour
+        minute = time.minute + 1
+        print(len(number), number)
+        if len(number) == 13:
+            print("### Sending mail to ")
+            try:
+                # sending message to receiver
+                # using pywhatkit
+                pywhatkit.sendwhatmsg(number, message, hour, minute)
+                print("Successfully Sent!")
+                return redirect(reverse("home"))
+
+            except:
+                print("An Unexpected Error!")
+    template_name = "customers/send_mail.html"
+    send_mail_form = SendMailForm()
+    context = {
+        "form": send_mail_form,
+        "customer": customer,
+    }
+
     return render(request, template_name, context)

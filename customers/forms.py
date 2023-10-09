@@ -21,3 +21,11 @@ class CustomerAddForm(forms.ModelForm):
                 attrs={"class": "form-control", "placeholder": "Customer's Address"}
             ),
         }
+
+
+class SendMailForm(forms.Form):
+    message = forms.CharField(
+        widget=forms.Textarea(
+            attrs={"class": "form-control", "placeholder": "Enter you message"}
+        )
+    )

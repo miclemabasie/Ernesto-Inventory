@@ -10,6 +10,7 @@ from products.models import Product
 from django.views.decorators.csrf import csrf_exempt
 from openpyxl import Workbook
 from datetime import datetime
+from django.contrib.auth.decorators import permission_required
 
 
 @login_required
@@ -148,6 +149,8 @@ def remove_sale_previewItem(request):
         return JsonResponse(data)
 
 
+@login_required
+@permission_required("sales.delete_sale, sales.delete_salesitem")
 def delete_sale(request, sale_id):
     """
     Delete a saleItem from the database.
@@ -157,6 +160,8 @@ def delete_sale(request, sale_id):
     return redirect(reverse("sales:list"))
 
 
+@login_required
+@permission_required("sales.chnage_sale, sales.change_saleitem")
 def edit_sale(request, sale_id):
     """
     Edit saleItem

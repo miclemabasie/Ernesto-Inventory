@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container">
+    <h1>Leave {{customer.username}} a message!</h1>
+    <form action="{% url "customers:send_message" customer.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            <label for="message">Message</label>
+            {{ form.message }}
+        </div>
+        <button type="submit" class="btn btn-primary form-control">Send Message</button>
+    </form>
+</div>
+{% endblock content %}
