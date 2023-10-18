@@ -7,7 +7,8 @@ from .forms import CustomerAddForm, SendMailForm
 from django.contrib.auth.decorators import login_required
 from openpyxl import Workbook
 from datetime import datetime
-import pywhatkit
+
+# import pywhatkit
 from .tasks import test_func, send_whatsapp_mail_to_customer
 from datetime import datetime
 
@@ -142,7 +143,7 @@ def send_message(request, customer_id):
             try:
                 # sending message to receiver
                 # using pywhatkit
-                send_whatsapp_mail_to_customer.delay(number, message)
+                # send_whatsapp_mail_to_customer.delay(number, message)
                 print("Successfully Sent!")
                 return redirect(reverse("home"))
 
