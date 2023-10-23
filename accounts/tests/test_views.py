@@ -30,7 +30,18 @@ class TestAccountsViews(TestCase):
         self.assertTemplateUsed(response, "accounts/authentication/login.html")
 
     def test_login_view_post(self):
+        # Test that user can login successfuly with correct credentials
         login_url = reverse("accounts:login")
-        data = {"emai": "admin@mail.com", "password": "123Testing3#"}
+        data = {"email": "test@mail.com", "password": "123Testing3#"}
         response = self.client.post(login_url, data, follow=True)
-        print(response)
+        login_redirect = "/"
+        self.assertEqual(response.request["PATH_INFO"], login_redirect)
+        self.assertEqual(response.status_code, 200)
+
+    def test_login_view_POST_wrong_credentials(self):
+        login_url = reverse("accounts:login")
+        data = {"email": "userb@mail.com", "password": "123Testing3#"}
+        response = self.client.post(login_url, data, follow=True)
+        login_redirect = "/accounts/login/"
+        self.assertEqual(response.request["PATH_INFO"], login_redirect)
+        self.assertEqual(response.status_code, 200)
