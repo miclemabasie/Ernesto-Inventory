@@ -24,7 +24,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".vercel.app", "now.sh", "localhost", "127.0.0.1"]
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -137,7 +137,9 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", "static")
 
 MEDIA_URL = "/mediafiles/"
 MEDIA_ROOT = BASE_DIR / "mediafiles/"
@@ -145,7 +147,6 @@ MEDIA_ROOT = BASE_DIR / "mediafiles/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 import logging
 import logging.config

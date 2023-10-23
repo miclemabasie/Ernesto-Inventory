@@ -58,27 +58,7 @@
             </a>
           </li>
           
-          <li class="nav-small-cap">
-            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-            <span class="hide-menu text-white">AUTH</span>
-          </li>
-          <li class="sidebar-item ">
-            <a class="text-white sidebar-link" href="{% url 'accounts:list' %}" aria-expanded="false">
-              <span>
-                <i class="ti ti-user"></i>
-              </span>
-              <span class="hide-menu">Users</span>
-            </a>
-          </li>
-
-          <li class="sidebar-item ">
-            <a class="text-white sidebar-link" href="{% url 'accounts:add_user' %}" aria-expanded="false">
-              <span>
-                <i class="ti ti-user-plus"></i>
-              </span>
-              <span class="hide-menu">Create User</span>
-            </a>
-          </li>
+          
 
           <li class="nav-small-cap">
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -112,6 +92,37 @@
                 <i class="ti ti-settings"></i>
               </span>
               <span class="hide-menu">Settings</span>
+            </a>
+          </li>
+
+          <li class="nav-small-cap">
+            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+            <span class="hide-menu text-white">AUTH</span>
+          </li>
+          <li class="sidebar-item ">
+            <a class="text-white sidebar-link" href="{% url 'accounts:list' %}" aria-expanded="false">
+              <span>
+                <i class="ti ti-user"></i>
+              </span>
+              <span class="hide-menu">Users</span>
+            </a>
+          </li>
+
+          <li class="sidebar-item ">
+            <a class="text-white sidebar-link" href="{% url 'accounts:add_user' %}" aria-expanded="false">
+              <span>
+                <i class="ti ti-user-plus"></i>
+              </span>
+              <span class="hide-menu">Create User</span>
+            </a>
+          </li>
+
+          <li class="sidebar-item ">
+            <a class="text-white sidebar-link" href="{% url 'accounts:logout' %}" aria-expanded="false">
+              <span>
+                <i class="ti ti-user"></i>
+              </span>
+              <span class="hide-menu">Logout</span>
             </a>
           </li>
         </ul>

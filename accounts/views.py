@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from .forms import LoginForm
 from django.http import HttpResponse
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from .forms import CustomUserCreationForm, ProfileForm, CustomUserChangeForm
@@ -31,6 +31,12 @@ def login_view(request):
                 pass
     context["form"] = form
     return render(request, template_name, context)
+
+
+def logout_view(request):
+    context = {}
+    logout(request)
+    return redirect("/")
 
 
 @login_required
