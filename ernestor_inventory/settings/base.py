@@ -119,9 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# vercel_app/settings.py
-WSGI_APPLICATION = "vercel_app.wsgi.app"
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
