@@ -21,7 +21,6 @@ django-extensions==3.2.3
 EasyProcess==1.1
 entrypoint2==1.1
 et-xmlfile==1.1.0
-evdev==1.6.1
 Flask==3.0.0
 gunicorn==21.2.0
 idna==3.4

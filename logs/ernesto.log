@@ -155,3 +155,4 @@ products.models.Category.MultipleObjectsReturned: get() returned more than one C
 2024-02-13 12:33:03,733 django.request WARNING  Not Found: /favicon.ico
 2024-02-13 12:38:26,601 django.request WARNING  Not Found: /static/bootstrap/images/sort_both.png
 2024-02-13 12:38:26,619 django.request WARNING  Not Found: /static/bootstrap/images/sort_asc.png
+2024-02-13 13:31:18,744 django.utils.autoreload INFO     Watching for file changes with StatReloader
