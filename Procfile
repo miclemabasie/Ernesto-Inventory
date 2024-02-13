@@ -1,1 +1,1 @@
-web: pip install -r requirements.txt --use-pep517 && python manage.py collectstatic --no-input && gunicorn ernestor_inventory.wsgi
+web: gunicorn ernestor_inventory.wsgi
