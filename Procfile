@@ -1,0 +1,1 @@
+web: gunicorn ernestor_inventory.wsgi:application

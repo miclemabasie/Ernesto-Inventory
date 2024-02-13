@@ -1,0 +1,157 @@
+2024-02-13 11:20:22,312 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 11:52:51,583 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 11:58:13,244 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 11:58:43,377 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 11:58:43,388 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 11:58:43,394 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 11:58:43,396 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 11:58:46,616 django.request WARNING  Not Found: /accounts/login/assets-login/images/favicon.ico
+2024-02-13 11:58:58,867 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 11:58:58,878 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 11:58:58,900 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 11:58:58,906 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:00:28,231 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:00:33,703 django.request WARNING  Not Found: /accounts
+2024-02-13 12:00:33,828 django.request WARNING  Not Found: /favicon.ico
+2024-02-13 12:00:42,411 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:00:42,426 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:00:42,429 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:00:42,431 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:00:58,264 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:00:58,297 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:00:58,311 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:00:58,304 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:04:16,521 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:05:26,493 django.utils.autoreload INFO     /home/electron/Dev/python/python2023/ernesto_inventory/ernestor_inventory/settings/development.py changed, reloading.
+2024-02-13 12:05:31,260 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:05:35,279 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:05:35,282 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:05:35,309 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:05:35,318 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:08:39,936 django.utils.autoreload INFO     /home/electron/Dev/python/python2023/ernesto_inventory/ernestor_inventory/settings/development.py changed, reloading.
+2024-02-13 12:08:40,834 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:08:44,443 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:08:44,469 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:08:44,487 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:08:44,497 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:09:08,788 django.request ERROR    Internal Server Error: /products/
+Traceback (most recent call last):
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/products/views.py", line 58, in product_list
+    return render(request, template_name, context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/loader_tags.py", line 208, in render
+    return template.render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 177, in render
+    return self._render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 715, in resolve
+    obj = self.var.resolve(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/template/base.py", line 914, in _resolve_lookup
+    current = current()
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/products/models.py", line 24, in get_products_count
+    cat = Category.objects.get(name__iexact=self.name)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/electron/Dev/python/python2023/ernesto_inventory/env/lib/python3.10/site-packages/django/db/models/query.py", line 640, in get
+    raise self.model.MultipleObjectsReturned(
+products.models.Category.MultipleObjectsReturned: get() returned more than one Category -- it returned 2!
+2024-02-13 12:09:27,378 django.utils.autoreload INFO     /home/electron/Dev/python/python2023/ernesto_inventory/ernestor_inventory/settings/development.py changed, reloading.
+2024-02-13 12:09:27,987 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:13:34,725 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:17:45,937 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:18:22,533 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:18:29,030 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:18:29,045 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:18:29,064 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:18:29,068 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:18:35,225 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:18:35,229 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:18:35,241 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:18:35,251 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:25:44,915 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:25:53,336 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:25:53,337 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:25:53,347 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:25:53,353 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:26:39,859 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:26:45,148 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:26:45,154 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:26:45,162 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:26:45,179 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:26:53,412 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:26:53,433 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:26:53,436 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:26:53,439 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:28:54,733 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:30:55,193 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:31:12,132 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:31:12,136 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:31:12,142 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:31:12,154 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:31:14,510 django.request WARNING  Not Found: /accounts/login/assets-login/images/favicon.ico
+2024-02-13 12:31:24,807 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:31:24,810 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:31:24,815 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:31:24,819 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:32:23,931 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 12:32:38,139 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-13 12:32:38,173 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-13 12:32:38,185 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-13 12:32:38,193 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-13 12:33:03,733 django.request WARNING  Not Found: /favicon.ico
+2024-02-13 12:38:26,601 django.request WARNING  Not Found: /static/bootstrap/images/sort_both.png
+2024-02-13 12:38:26,619 django.request WARNING  Not Found: /static/bootstrap/images/sort_asc.png
