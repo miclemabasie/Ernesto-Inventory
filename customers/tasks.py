@@ -1,5 +1,5 @@
 from celery import Celery, shared_task
-import keyboard
+
 
 # Create a Celery app instance
 app = Celery("your_project_name")
