@@ -160,3 +160,5 @@ products.models.Category.MultipleObjectsReturned: get() returned more than one C
 2024-02-13 14:33:50,870 django.utils.autoreload INFO     /home/electron/Dev/python/python2023/ernesto_inventory/customers/tasks.py changed, reloading.
 2024-02-13 14:33:51,383 django.utils.autoreload INFO     Watching for file changes with StatReloader
 2024-02-13 14:43:14,051 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 14:52:12,794 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 14:58:27,195 django.utils.autoreload INFO     Watching for file changes with StatReloader

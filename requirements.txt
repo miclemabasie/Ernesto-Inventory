@@ -42,16 +42,7 @@ platformdirs==3.8.1
 prompt-toolkit==3.0.39
 psycopg2-binary==2.9.6
 PyGetWindow==0.0.9
-PyMsgBox==1.0.9
-pynput==1.7.6
-pyperclip==1.8.2
-PyRect==0.2.0
-pyscreenshot==3.1
-PyScreeze==0.1.29
 python-dateutil==2.8.2
-python-xlib==0.33
-python3-xlib==0.15
-pytweening==1.0.7
 redis==5.0.1
 requests==2.31.0
 six==1.16.0
