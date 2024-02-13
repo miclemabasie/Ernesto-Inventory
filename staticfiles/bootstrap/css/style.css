@@ -1,0 +1,28 @@
+.hide {
+    display: none !important;
+}
+
+.dash-components {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.dash-component {
+    height: 150px;
+    width: auto;
+    background-color: rgb(100, 100, 224);
+    padding: 20px;
+    border: None;
+    border-radius: 20px;
+
+}
+
+.dash-component h1 a {
+    color: white;
+}
+
+.dash-total {
+    padding-top: 50px;
+    text-align: right;
+    color: white
+}
