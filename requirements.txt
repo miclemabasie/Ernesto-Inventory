@@ -21,7 +21,6 @@ django-extensions==3.2.3
 EasyProcess==1.1
 entrypoint2==1.1
 et-xmlfile==1.1.0
-evdev==1.6.1
 Flask==3.0.0
 gunicorn==21.2.0
 idna==3.4
@@ -42,7 +41,6 @@ Pillow==10.0.0
 platformdirs==3.8.1
 prompt-toolkit==3.0.39
 psycopg2-binary==2.9.6
-PyAutoGUI==0.9.54
 PyGetWindow==0.0.9
 PyMsgBox==1.0.9
 pynput==1.7.6
