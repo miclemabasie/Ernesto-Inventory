@@ -81,9 +81,9 @@ MIDDLEWARE = [
 # settings.py
 # settings.py
 
-CSRF_USE_SESSIONS = True
+# CSRF_USE_SESSIONS = True
 
-CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
 CORS_ALLOWED_ORIGINS = [
     "https://web-production-3e03.up.railway.app",
