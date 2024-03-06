@@ -90,7 +90,9 @@ CORS_ALLOWED_ORIGINS = [
     # Add other trusted origins as needed
 ]
 # settings.py
-CSRF_TRUSTED_ORIGINS = ["https://<my_domain>.com"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://web-production-3e03.up.railway.app",
+]
 
 CORS_ALLOWED_CREDENTIALS = True
 
