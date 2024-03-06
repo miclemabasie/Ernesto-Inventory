@@ -81,11 +81,21 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# settings.py
+# settings.py
+
+# CSRF_USE_SESSIONS = False
+
+CSRF_COOKIE_SECURE = True
 
 CORS_ALLOWED_ORIGINS = [
     "https://web-production-3e03.up.railway.app",
     # Add other trusted origins as needed
 ]
+# settings.py
+
+CSRF_COOKIE_SECURE = True
+
 
 CORS_ALLOWED_CREDENTIALS = True
 
