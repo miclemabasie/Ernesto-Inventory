@@ -81,6 +81,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://web-production-3e03.up.railway.app",
+    # Add other trusted origins as needed
 ]
 
 CORS_ALLOWED_CREDENTIALS = True
