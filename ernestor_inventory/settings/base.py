@@ -24,10 +24,7 @@ SECRET_KEY = "dkjal;ksdfjlaksdjflkasjdfklajsdklfjaslk"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "https://web-production-3e03.up.railway.app",
-    "localhost",
-]
+ALLOWED_HOSTS = ["*"]
 
 AUTH_USER_MODEL = "accounts.User"
 
