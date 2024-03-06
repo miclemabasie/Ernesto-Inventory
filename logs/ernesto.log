@@ -172,3 +172,9 @@ products.models.Category.MultipleObjectsReturned: get() returned more than one C
 2024-02-14 09:08:00,714 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
 2024-02-14 09:15:15,969 django.request WARNING  Not Found: /commons/import_data/index.html
 2024-02-14 09:19:50,231 django.request WARNING  Not Found: /sales/index.html
+2024-03-06 12:59:09,429 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-03-06 12:59:09,446 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-03-06 12:59:09,464 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-03-06 12:59:09,484 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-03-06 12:59:10,423 django.request WARNING  Not Found: /accounts/login/assets-login/images/favicon.ico
+2024-03-06 12:59:33,655 django.request WARNING  Not Found: /favicon.ico
