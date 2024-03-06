@@ -162,3 +162,13 @@ products.models.Category.MultipleObjectsReturned: get() returned more than one C
 2024-02-13 14:43:14,051 django.utils.autoreload INFO     Watching for file changes with StatReloader
 2024-02-13 14:52:12,794 django.utils.autoreload INFO     Watching for file changes with StatReloader
 2024-02-13 14:58:27,195 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-13 20:21:33,548 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-14 09:07:16,051 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-14 09:07:54,636 django.utils.autoreload INFO     /home/electron/Dev/python/python2023/ernesto_inventory/ernestor_inventory/settings/development.py changed, reloading.
+2024-02-14 09:07:55,193 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-02-14 09:08:00,680 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-02-14 09:08:00,681 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-02-14 09:08:00,711 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-02-14 09:08:00,714 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-02-14 09:15:15,969 django.request WARNING  Not Found: /commons/import_data/index.html
+2024-02-14 09:19:50,231 django.request WARNING  Not Found: /sales/index.html

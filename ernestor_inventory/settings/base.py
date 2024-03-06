@@ -51,6 +51,7 @@ LOCAL_APPS = [
     "crispy_bootstrap5",
     "celery",
     "django_celery_results",
+    "corsheaders",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
@@ -67,6 +68,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = (
 )
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -75,6 +77,13 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+
+CORS_ALLOWED_ORIGINS = [
+    "https://web-production-3e03.up.railway.app",
+]
+
+CORS_ALLOWED_CREDENTIALS = True
 
 ROOT_URLCONF = "ernestor_inventory.urls"
 
