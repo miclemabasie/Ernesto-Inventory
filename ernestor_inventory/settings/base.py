@@ -81,7 +81,7 @@ MIDDLEWARE = [
 # settings.py
 # settings.py
 
-# CSRF_USE_SESSIONS = False
+CSRF_USE_SESSIONS = True
 
 CSRF_COOKIE_SECURE = True
 
@@ -90,9 +90,7 @@ CORS_ALLOWED_ORIGINS = [
     # Add other trusted origins as needed
 ]
 # settings.py
-
-CSRF_COOKIE_SECURE = True
-
+CSRF_TRUSTED_ORIGINS = ["https://<my_domain>.com"]
 
 CORS_ALLOWED_CREDENTIALS = True
 

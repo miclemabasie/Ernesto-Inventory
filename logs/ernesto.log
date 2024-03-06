@@ -178,3 +178,23 @@ products.models.Category.MultipleObjectsReturned: get() returned more than one C
 2024-03-06 12:59:09,484 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
 2024-03-06 12:59:10,423 django.request WARNING  Not Found: /accounts/login/assets-login/images/favicon.ico
 2024-03-06 12:59:33,655 django.request WARNING  Not Found: /favicon.ico
+2024-03-06 13:37:08,287 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2024-03-06 13:37:58,040 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-03-06 13:37:58,056 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-03-06 13:37:58,145 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-03-06 13:37:58,175 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-03-06 13:37:59,325 django.request WARNING  Not Found: /accounts/login/assets-login/images/favicon.ico
+2024-03-06 13:39:24,316 django.request WARNING  Not Found: /favicon.ico
+2024-03-06 13:39:26,976 django.request WARNING  Not Found: /static/bootstrap/js/bootstrap.bundle.min.js.map
+2024-03-06 13:39:27,006 django.request WARNING  Not Found: /static/bootstrap/js/popper.min.js.map
+2024-03-06 13:39:27,027 django.request WARNING  Not Found: /static/bootstrap/js/bootstrap.min.js.map
+2024-03-06 13:39:27,049 django.request WARNING  Not Found: /static/bootstrap/js/chart.umd.js.map
+2024-03-06 13:40:58,638 django.request WARNING  Not Found: /src/vendors/@mdi/font/css/materialdesignicons.min.css
+2024-03-06 13:40:58,658 django.request WARNING  Not Found: /accounts/src/vendors/jquery/dist/jquery.min.js
+2024-03-06 13:40:58,692 django.request WARNING  Not Found: /accounts/src/vendors/popper.js/dist/umd/popper.min.js
+2024-03-06 13:40:58,735 django.request WARNING  Not Found: /accounts/src/vendors/bootstrap/dist/js/bootstrap.min.js
+2024-03-06 13:42:19,668 django.request WARNING  Not Found: /static/bootstrap/js/bootstrap.bundle.min.js.map
+2024-03-06 13:42:19,780 django.request WARNING  Not Found: /static/bootstrap/js/popper.min.js.map
+2024-03-06 13:42:19,797 django.request WARNING  Not Found: /static/bootstrap/js/bootstrap.min.js.map
+2024-03-06 13:42:19,812 django.request WARNING  Not Found: /static/bootstrap/js/chart.umd.js.map
+2024-03-06 13:42:23,596 django.request WARNING  Not Found: /favicon.ico
